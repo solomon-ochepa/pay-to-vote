@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'username'      => "admin",
                 'phone'         => "2340000000000",
                 'email'         => "admin@example.com",
+                'is_admin'      => 1,
                 'password'      => $password,
                 'password_confirmation' => $password,
             ]

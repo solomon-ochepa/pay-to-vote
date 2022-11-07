@@ -9,6 +9,5 @@ use Plank\Mediable\Media as PlankMedia;
 
 class Media extends PlankMedia
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, HasUuids;
 }

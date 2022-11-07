@@ -1,44 +1,89 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('app') }}/images/favicon.ico">
 
-        <!-- Styles -->
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <x-jet-banner />
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap">
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app') }}/vendor/OverlayScrollbars-master/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/tiny-slider/dist/tiny-slider.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app') }}/vendor/choices.js/public/assets/styles/choices.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('app') }}/vendor/glightbox-master/dist/css/glightbox.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/dropzone/dist/dropzone.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/flatpickr/dist/flatpickr.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('app') }}/vendor/plyr/plyr.css" />
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+    <!-- Theme CSS -->
+    <link id="style-switch" rel="stylesheet" type="text/css" href="{{ asset('app') }}/css/style.css">
 
-            <!-- Page Content -->
-            <main>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMKQ4P9YMZ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GMKQ4P9YMZ');
+    </script>
+
+    <!-- Scripts -->
+    @vite('resources/js/app.js')
+
+    <!-- Styles -->
+    @livewireStyles
+</head>
+
+<body>
+    <livewire:layouts.app.header />
+
+    <main>
+        <!-- Container START -->
+        <div class="container">
+            <div class="row g-4">
+                {{-- <div class="col-md-8 col-lg-6 vstack gap-4"> --}}
                 {{ $slot }}
-            </main>
+                {{-- </div> --}}
+            </div>
         </div>
+    </main>
 
-        @stack('modals')
+    @stack('modals')
 
-        @livewireScripts
-    </body>
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('app') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Vendors -->
+    <script src="{{ asset('app') }}/vendor/tiny-slider/dist/tiny-slider.js"></script>
+    <script src="{{ asset('app') }}/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js"></script>
+    <script src="{{ asset('app') }}/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="{{ asset('app') }}/vendor/glightbox-master/dist/js/glightbox.min.js"></script>
+    <script src="{{ asset('app') }}/vendor/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="{{ asset('app') }}/vendor/plyr/plyr.js"></script>
+    <script src="{{ asset('app') }}/vendor/dropzone/dist/min/dropzone.min.js"></script>
+
+    <!-- Template Functions -->
+    <script src="{{ asset('app/js/functions.js') }}"></script>
+
+    @livewireScripts
+</body>
+
 </html>
