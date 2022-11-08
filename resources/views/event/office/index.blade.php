@@ -64,9 +64,11 @@
                                 <div class="col-sm-6 col-xl-4">
                                     <div class="card h-100">
                                         <div class="position-relative">
-                                            <img class="img-fluid rounded-top"
-                                                src="{{ $event->media ?? asset('app') . '/images/events/01.jpg' }}"
-                                                alt="">
+                                            <a href="{{ route('office.event.show', ['event' => $event->slug]) }}">
+                                                <img class="img-fluid rounded-top"
+                                                    src="{{ $event->media ?? asset('app') . '/images/events/01.jpg' }}"
+                                                    alt="">
+                                            </a>
                                             <div
                                                 class="badge bg-danger text-white mt-2 me-2 position-absolute top-0 end-0">
                                                 {{ $event->status ?? 'Active' }}

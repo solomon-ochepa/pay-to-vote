@@ -85,7 +85,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         return view('event.office.show', [
-            'events' => $event,
+            'event' => $event,
         ]);
     }
 
