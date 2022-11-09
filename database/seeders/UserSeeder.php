@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Actions\Fortify\CreateNewUser;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Validation\Rules\Exists;
 
 class UserSeeder extends Seeder
 {
@@ -31,7 +33,14 @@ class UserSeeder extends Seeder
 
         $account = new CreateNewUser();
         foreach ($users as $key => $user) {
-            $account->create($user);
+            $exists = User::where([
+                'username' => $user['username'],
+                'phone' => $user['phone'],
+                'email' => $user['email'],
+            ]);
+
+            if (!$exists)
+                $account->create($user);
         }
     }
 }
