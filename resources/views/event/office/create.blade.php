@@ -13,6 +13,23 @@
                         @csrf
 
                         <div class="row  g-3">
+                            {{-- Pictures --}}
+                            <div class="col-md-12" style="max-height: 250px;">
+                                @if ($file and !empty($file->temporaryUrl()))
+                                    <img src="{{ $file->temporaryUrl() }}" class="rounded mb-2" width="auto"
+                                        style="max-width: 100%; height: 100%">
+                                @elseif($media)
+                                    <img src="{{ $media->getUrl() }}" class="rounded mb-2" width="auto"
+                                        style="max-width: 100%">
+                                @endif
+
+                                <div class="input-group input-group-sm">
+                                    <input type="file" class="form-control" id="file"
+                                        aria-label="Upload Proof of payment" title="Upload your picture here" required
+                                        wire:model="file" tooltip />
+                                </div>
+                            </div>
+
                             <div class="col-12">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="">

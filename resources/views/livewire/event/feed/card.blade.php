@@ -10,7 +10,7 @@
             <a href="{{ route('event.contestant.create', ['event' => $event->slug]) }}"
                 class="btn btn-sm btn-primary-soft me-1_">
                 <i class="fas fa-user-tie me-1"></i>
-                Contest Now
+                Contest
             </a>
         </div>
     </div>
@@ -29,8 +29,14 @@
                                 <div class="card-body p-2 pb-0">
                                     <div class="avatar avatar-xl">
                                         <a href="#!">
-                                            <img class="avatar-img rounded-circle"
-                                                src="{{ asset('app') }}/images/avatar/09.jpg" alt=""></a>
+                                            @if ($contestant->media->first())
+                                                <img class="avatar-img rounded-circle"
+                                                    src="{{ $contestant->media->first()->getUrl() }}" alt="">
+                                            @else
+                                                <img class="avatar-img rounded-circle"
+                                                    src="{{ asset('app') }}/images/avatar/09.jpg" alt="">
+                                            @endif
+                                        </a>
                                     </div>
                                     <h6 class="card-title mb-1 mt-3">
                                         <div># {{ $contestant->number }}</div>

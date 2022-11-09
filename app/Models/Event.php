@@ -6,10 +6,12 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Plank\Mediable\Mediable;
 
 class Event extends Model
 {
     use HasFactory, HasUuids, Sluggable;
+    use Mediable;
 
     /**
      * The attributes that are mass assignable.

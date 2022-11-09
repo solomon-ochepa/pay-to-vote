@@ -7,7 +7,7 @@
                     @if ($modal->id)
                         <h5 class="modal-title" id="modalLabelCreateAlbum">
                             Vote: {{ $modal->user->first_name }} {{ $modal->user->last_name }}
-                            #{{ $modal->number }}
+                            (#{{ $modal->number }})
                         </h5>
                     @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
