@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public $table = "";
+    public $table = '';
 
     /**
      * Run the migrations.
