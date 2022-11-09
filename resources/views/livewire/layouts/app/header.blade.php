@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Logo START -->
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <a class="navbar-brand" href="{{ route('office.dashboard') }}">
                 <img class="light-mode-item navbar-brand-item" src="/app/images/logo.svg" alt="logo">
                 <img class="dark-mode-item navbar-brand-item" src="/app/images/logo.svg" alt="logo">
             </a>
@@ -43,10 +43,10 @@
 
                         <ul class="dropdown-menu" aria-labelledby="events">
                             <li>
-                                <a class="dropdown-item active" href="{{ route('office.event.index') }}">All Events</a>
+                                <a class="dropdown-item active" href="{{ route('event.index') }}">All Events</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('office.event.create') }}">Create Events</a>
+                                <a class="dropdown-item" href="{{ route('event.create') }}">Create Events</a>
                             </li>
                             <li class="dropdown-divider"></li>
                             <li>
@@ -152,7 +152,7 @@
 
                     <!-- Nav item 4 Mega menu -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('office.event.index') }}">Events</a>
+                        <a class="nav-link" href="{{ route('event.index') }}">Events</a>
                     </li>
                 </ul>
             </div>
@@ -279,67 +279,65 @@
                         <img class="avatar-img rounded-2" src="/app/images/avatar/07.jpg" alt="">
                     </a>
 
-                    <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
-                        aria-labelledby="profileDropdown">
-                        <!-- Profile info -->
-                        <li class="px-3">
-                            <div class="d-flex align-items-center position-relative">
-                                <!-- Avatar -->
-                                <div class="avatar me-3">
-                                    <img class="avatar-img rounded-circle" src="/app/images/avatar/07.jpg"
-                                        alt="avatar">
+                    @auth
+                        <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
+                            aria-labelledby="profileDropdown">
+                            <!-- Profile info -->
+                            <li class="px-3">
+                                <div class="d-flex align-items-center position-relative">
+                                    <!-- Avatar -->
+                                    <div class="avatar me-3">
+                                        <img class="avatar-img rounded-circle" src="/app/images/avatar/07.jpg"
+                                            alt="avatar">
+                                    </div>
+                                    <div>
+                                        <a class="h6 stretched-link" href="#">
+                                            {{ request()->user()->first_name }} {{ request()->user()->last_name }}
+                                        </a>
+                                        {{-- <p class="small m-0">{{ request()->user()->role }}</p> --}}
+                                    </div>
                                 </div>
-                                <div>
-                                    <a class="h6 stretched-link" href="#">
-                                        {{ request()->user()->first_name }} {{ request()->user()->last_name }}
-                                    </a>
-                                    {{-- <p class="small m-0">{{ request()->user()->role }}</p> --}}
-                                </div>
-                            </div>
 
-                            <a class="dropdown-item btn btn-primary-soft btn-sm my-2 text-center"
-                                href="{{ route('profile.show') }}">View profile</a>
-                        </li>
+                                <a class="dropdown-item btn btn-primary-soft btn-sm my-2 text-center"
+                                    href="{{ route('profile.show') }}">View profile</a>
+                            </li>
 
-                        <!-- Links -->
-                        {{-- <li>
+                            <!-- Links -->
+                            {{-- <li>
                             <a class="dropdown-item" href="settings.html"><i
                                     class="bi bi-gear fa-fw me-2"></i>Settings & Privacy</a>
                         </li> --}}
-                        {{-- <li>
+                            {{-- <li>
                             <a class="dropdown-item" href="https://support.webestica.com/" target="_blank">
                                 <i class="fa-fw bi bi-life-preserver me-2"></i>Support
                             </a>
                         </li> --}}
-                        {{-- <li>
+                            {{-- <li>
                             <a class="dropdown-item" href="docs/index.html" target="_blank">
                                 <i class="fa-fw bi bi-card-text me-2"></i>Documentation
                             </a>
                         </li> --}}
-                        <li class="dropdown-divider"></li>
-                        <li>
-                            <a class="dropdown-item bg-danger-soft-hover" href="#">
-                                <i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <!-- Dark mode switch START -->
-                        <li>
-                            <div class="modeswitch-wrap" id="darkModeSwitch">
-                                <div class="modeswitch-item">
-                                    <div class="modeswitch-icon"></div>
+                            <li class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item bg-danger-soft-hover" href="#">
+                                    <i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="modeswitch-wrap" id="darkModeSwitch">
+                                    <div class="modeswitch-item">
+                                        <div class="modeswitch-icon"></div>
+                                    </div>
+                                    <span>Dark mode</span>
                                 </div>
-                                <span>Dark mode</span>
-                            </div>
-                        </li>
-                        <!-- Dark mode switch END -->
-                    </ul>
-                </li>
-                <!-- Profile START -->
+                            </li>
+                        </ul>
 
+                    @endauth
+                </li>
             </ul>
-            <!-- Nav right END -->
         </div>
     </nav>
 </header>
