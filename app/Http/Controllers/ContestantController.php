@@ -27,6 +27,7 @@ class ContestantController extends Controller
      */
     public function create(Event $event)
     {
+        // restrict multiple reg
         return view('contestant.create', ['event' => $event]);
     }
 
@@ -38,18 +39,19 @@ class ContestantController extends Controller
      */
     public function store(Event $event, Request $request)
     {
+        $mimes = ['jpg', 'jpeg', 'png', 'svg'];
+
+        $request->validate([
+            'image' => ['bail', 'required', 'image', "max:1024", "mimes:jpg,jpeg,png,svg"],
+        ]);
+
         $validated_user_details = $request->validate([
             'first_name' => ['required', 'string', 'max:32'],
             'last_name' => ['required', 'string', 'max:32'],
             'username' => ['required', 'string', 'max:32'],
             'phone' => ['required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:32'],
-            // Address
-            // 'country' => ['nullable', 'string'],
-            // 'state' => ['nullable', 'string'],
-            // 'town' => ['nullable', 'string'],
+            'email' => ['required', 'string', 'email', 'max:32']
         ]);
-
 
         // Update User
         $user = auth()->user();
@@ -76,13 +78,13 @@ class ContestantController extends Controller
         else
             $this->media = null;
 
-        // dd($request->file('file'));
-
         // Upload file
-        $upload = MediaUploader::fromSource($request->file('file'))
+        $upload = MediaUploader::fromSource($request->file('image'))
             ->toDisk('public')
             ->toDirectory('pictures/')
-            ->setAllowedExtensions(['jpg', 'jpeg', 'png'])
+            // ->setAllowedExtensions(['jpg', 'jpeg', 'png', 'svg'])
+            // ->setAllowedAggregateTypes(['image/jpeg'])
+            // ->setAllowUnrecognizedTypes(true)
             ->onDuplicateUpdate()
             ->useHashForFilename()
             ->makePrivate()
