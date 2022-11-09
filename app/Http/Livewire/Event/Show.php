@@ -8,22 +8,15 @@ use Livewire\Component;
 class Show extends Component
 {
     public $event;
-    public $contestant;
-
-    public function mount()
-    {
-        $this->contestant = new Contestant();
-    }
+    public $modal_id;
 
     public function render()
     {
         return view('livewire.event.show');
     }
 
-    protected $listeners = ['contestant'];
-
-    public function contestant($contestant)
+    public function modal($id)
     {
-        $this->contestant = Contestant::find($contestant);
+        return $this->emit('modal_id', $id);
     }
 }
