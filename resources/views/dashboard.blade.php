@@ -12,7 +12,7 @@
                     <livewire:event.feed.card :event="$event" />
                 @endforeach
             @else
-                No events, please <a href="{{ route('office.event.create') }}">create new event</a>
+                No events, please <a href="{{ route('event.create') }}">create new event</a>
             @endisset
         </div>
     </div>
