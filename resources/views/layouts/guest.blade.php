@@ -43,10 +43,7 @@
                 <div class="col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
                     <div class="card card-body text-center p-4 p-sm-5">
                         @isset($title)
-                            <h1 class="mb-2">{!! $title !!}</h1>
-                        @endisset
-                        @isset($description)
-                            <p class="mb-0">{!! $description !!}</p>
+                            {!! $title !!}
                         @endisset
 
                         {{ $slot }}
