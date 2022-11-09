@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contestant;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContestantController extends Controller
 {
@@ -22,9 +24,9 @@ class ContestantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Event $event)
     {
-        //
+        return view('contestant.create', ['event' => $event]);
     }
 
     /**
@@ -33,9 +35,40 @@ class ContestantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $event, Request $request)
     {
-        //
+        $validated_user_details = $request->validate([
+            'first_name' => ['required', 'string', 'max:32'],
+            'last_name' => ['required', 'string', 'max:32'],
+            'username' => ['required', 'string', 'max:32'],
+            'phone' => ['required', 'string', 'max:32'],
+            'email' => ['required', 'string', 'email', 'max:32'],
+            // Address
+            // 'country' => ['nullable', 'string'],
+            // 'state' => ['nullable', 'string'],
+            // 'town' => ['nullable', 'string'],
+        ]);
+
+        // Update User
+        $user = auth()->user();
+        $user->update($validated_user_details);
+
+        $latest = Contestant::latest()->first();
+        if ($latest)
+            $number = $latest->number + 1;
+        else
+            $number = 1000;
+
+        $contestant = Contestant::firstOrCreate([
+            'user_id' => $user->id,
+            'event_id' => $event->id,
+        ], [
+            'number' => $number,
+        ]);
+
+        session()->flash('status', "Contestant ({$contestant->number}) registered successfully.");
+
+        return redirect()->route('event.show', ['event' => $event->slug]);
     }
 
     /**
