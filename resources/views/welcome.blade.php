@@ -1,5 +1,13 @@
-<x-site-layout>
-    <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-        {{ config('app.name') }}
+<x-app-sidebars-layout>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @isset($events)
+                @foreach ($events as $event)
+                    <livewire:event.feed.card :event="$event" />
+                @endforeach
+            @else
+                No events, please <a href="{{ route('event.create') }}">create new event</a>
+            @endisset
+        </div>
     </div>
-</x-site-layout>
+</x-app-sidebars-layout>
