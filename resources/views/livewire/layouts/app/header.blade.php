@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <!-- Logo START -->
-            <a class="navbar-brand" href="{{ route('office.dashboard') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <img class="light-mode-item navbar-brand-item" src="/app/images/logo.svg" alt="logo">
                 <img class="dark-mode-item navbar-brand-item" src="/app/images/logo.svg" alt="logo">
             </a>
@@ -279,9 +279,9 @@
                         <img class="avatar-img rounded-2" src="/app/images/avatar/07.jpg" alt="">
                     </a>
 
-                    @auth
-                        <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
-                            aria-labelledby="profileDropdown">
+                    <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
+                        aria-labelledby="profileDropdown">
+                        @auth
                             <!-- Profile info -->
                             <li class="px-3">
                                 <div class="d-flex align-items-center position-relative">
@@ -318,10 +318,20 @@
                             </a>
                         </li> --}}
                             <li class="dropdown-divider"></li>
+                            <!-- Authentication: Logout -->
                             <li>
-                                <a class="dropdown-item bg-danger-soft-hover" href="#">
-                                    <i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
+                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                    <a class="dropdown-item bg-danger-soft-hover" href="{{ route('logout') }}"
+                                        @click.prevent="$root.submit();">
+                                        <i class="bi bi-power fa-fw me-2"></i>
+                                        {{ __('Sign Out') }}
+                                    </a>
+
+                                    @csrf
+                                </form>
                             </li>
+
+                            <!-- Dark mode -->
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -333,9 +343,8 @@
                                     <span>Dark mode</span>
                                 </div>
                             </li>
-                        </ul>
-
-                    @endauth
+                        @endauth
+                    </ul>
                 </li>
             </ul>
         </div>
