@@ -1,13 +1,15 @@
-<div wire:ignore class="modal fade" id="vote-modal" data-bs-backdrop="static" tabindex="-1"
+<div wire:ignore.self class="modal fade" id="vote-modal" data-bs-backdrop="static" tabindex="-1"
     aria-labelledby="modalLabelCreateAlbum" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form wire:submit.prevent="save">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabelCreateAlbum">
-                        Vote {{ $contestant->user->first_name }} {{ $contestant->user->last_name }}
-                        <div class="small"># {{ $contestant->number }}</div>
-                    </h5>
+                    @if ($modal->id)
+                        <h5 class="modal-title" id="modalLabelCreateAlbum">
+                            Vote: {{ $modal->user->first_name }} {{ $modal->user->last_name }}
+                            #{{ $modal->number }}
+                        </h5>
+                    @endif
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
