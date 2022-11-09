@@ -1,97 +1,93 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+    <x-slot name="title">
+        <div class="text-center">
+            <h1 class="mb-2">Sign up</h1>
 
-        <x-jet-validation-errors class="mb-4" />
+            <span class="d-block">
+                @php $url = route('login'); @endphp
+                Already have an account? <a href='{{ $url }}'>Sign in here</a>
+            </span>
+        </div>
+    </x-slot>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+    <!-- Form START -->
 
-            {{-- First name --}}
-            <div>
-                <x-jet-label for="first_name" value="{{ __('First name') }}" />
-                <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')"
-                    required autofocus autocomplete="first_name" />
+    <form method="POST" action="{{ route('register') }}" class="mt-4">
+        <!-- Phone -->
+        <div class="mb-3 input-group-lg">
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter phone number"
+                :value="old('first_name')" autofocus autocomplete="phone" required>
+            <small class="form-text text-start d-block">We'll never share your phone number with anyone else.</small>
+        </div>
+
+        <!-- New password -->
+        <div class="mb-3 position-relative">
+            <div class="input-group input-group-lg">
+                <input class="form-control fakepassword" type="password" id="psw-input" placeholder="Password"
+                    name="password" required autocomplete="new-password">
+                <span class="input-group-text p-0">
+                    <i class="fakepasswordicon fa-solid fa-eye-slash cursor-pointer p-2 w-40px"></i>
+                </span>
             </div>
 
-            {{-- Last name --}}
-            <div class="mt-3">
-                <x-jet-label for="last_name" value="{{ __('Last name') }}" />
-                <x-jet-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')"
-                    required />
-            </div>
-
-            {{-- Username --}}
-            <div class="mt-3">
-                <x-jet-label for="username" value="{{ __('Username') }}" />
-                <x-jet-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')"
-                    required />
-            </div>
-
-            {{-- Phone --}}
-            <div class="mt-3">
-                <x-jet-label for="phone" value="{{ __('Phone') }}" />
-                <x-jet-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')"
-                    required />
-            </div>
-
-            {{-- Email --}}
-            <div class="mt-3">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                    required />
-            </div>
-
-            <div class="mt-3">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="new-password" />
-            </div>
-
-            <div class="mt-3">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                    name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-3">
-                    <x-jet-label for="terms">
-                        <div class="flex items-center">
-                            <x-jet-checkbox name="terms" id="terms" required />
-
-                            <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                    'terms_of_service' =>
-                                        '<a target="_blank" href="' .
-                                        route('terms.show') .
-                                        '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
-                                        __('Terms of Service') .
-                                        '</a>',
-                                    'privacy_policy' =>
-                                        '<a target="_blank" href="' .
-                                        route('policy.show') .
-                                        '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
-                                        __('Privacy Policy') .
-                                        '</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-jet-label>
+            <!-- Pswmeter -->
+            <div id="pswmeter" class="mt-2"></div>
+            <div class="d-flex mt-1">
+                <div id="pswmeter-message" class="rounded"></div>
+                <!-- Password message notification -->
+                <div class="ms-auto">
+                    <i class="bi bi-info-circle ps-1" data-bs-container="body" data-bs-toggle="popover"
+                        data-bs-placement="top"
+                        data-bs-content="Include at least one uppercase, one lowercase, one special character, one number and 8 characters long."
+                        data-bs-original-title="" title=""></i>
                 </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-3">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
             </div>
-        </form>
-    </x-jet-authentication-card>
+        </div>
+
+        <!-- Confirm password -->
+        <div class="mb-3 input-group-lg">
+            <input class="form-control" type="password" id="password_confirmation" placeholder="Confirm password"
+                name="password_confirmation" required autocomplete="new-password">
+        </div>
+
+        @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature() and 1 > 1)
+            <div class="mt-3">
+                <x-jet-label for="terms">
+                    <div class="flex items-center">
+                        <x-jet-checkbox name="terms" id="terms" required />
+
+                        <div class="ml-2">
+                            {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                'terms_of_service' =>
+                                    '<a target="_blank" href="' .
+                                    route('terms.show') .
+                                    '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                    __('Terms of Service') .
+                                    '</a>',
+                                'privacy_policy' =>
+                                    '<a target="_blank" href="' .
+                                    route('policy.show') .
+                                    '" class="underline text-sm text-gray-600 hover:text-gray-900">' .
+                                    __('Privacy Policy') .
+                                    '</a>',
+                            ]) !!}
+                        </div>
+                    </div>
+                </x-jet-label>
+            </div>
+        @endif
+
+        <!-- Keep me signed in -->
+        <div class="mb-3 text-start">
+            <input type="checkbox" class="form-check-input" id="keepsingnedCheck">
+            <label class="form-check-label" for="keepsingnedCheck"> Keep me signed in</label>
+        </div>
+
+        <!-- Button -->
+        <div class="d-grid">
+            <button type="submit" class="btn btn-lg btn-primary">Sign up</button>
+        </div>
+
+        @csrf
+    </form>
 </x-guest-layout>
