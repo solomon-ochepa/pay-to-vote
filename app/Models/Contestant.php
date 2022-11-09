@@ -17,7 +17,7 @@ class Contestant extends Model
      * @var string[]
      */
     protected $fillable = [
-        'number', 'votes', 'event_id', 'user_id'
+        'number', 'event_id', 'user_id', 'votes'
     ];
 
     /**
@@ -42,5 +42,25 @@ class Contestant extends Model
     public function getRouteKeyName()
     {
         return 'username';
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
