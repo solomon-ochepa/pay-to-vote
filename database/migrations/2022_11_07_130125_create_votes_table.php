@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('total');
             $table->decimal('amount');
             $table->boolean('active')->default(0);
+            $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
             //
             $table->uuid('id')->primary();
             $table->timestamps();
