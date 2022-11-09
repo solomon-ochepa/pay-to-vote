@@ -12,4 +12,9 @@ class Card extends Component
     {
         return view('livewire.event.feed.card');
     }
+
+    public function modal($id)
+    {
+        return $this->emit('modal_id', $id);
+    }
 }
