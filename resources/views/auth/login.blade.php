@@ -1,9 +1,13 @@
 <x-guest-layout>
     <x-slot name="title">
-        Sign In
-    </x-slot>
-    <x-slot name="description">
-        Don't have an account? <a href="{{ route('register') }}">Click here to sign up</a>
+        <div class="text-center">
+            <h1 class="mb-2">Sign In</h1>
+
+            <span class="d-block">
+                @php $url = route('register'); @endphp
+                Don't have an account? <a href='{{ $url }}'>Click here to sign up</a>
+            </span>
+        </div>
     </x-slot>
 
     <form livewire="wire:submit.prevent='login'" method="POST" class="mt-sm-4">
