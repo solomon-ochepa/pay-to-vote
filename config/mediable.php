@@ -54,7 +54,7 @@ return [
      * Reject files whose mime type or extension is not recognized
      * if true, files will be given a type of `'other'`
      */
-    'allow_unrecognized_types' => false,
+    'allow_unrecognized_types' => true,
 
     /*
      * Only allow files with specific MIME type(s) to be uploaded
@@ -90,7 +90,7 @@ return [
             'extensions' => [
                 'jpg',
                 'jpeg',
-                // 'jfif',
+                'jfif',
                 'pjpeg',
                 'pjp',
                 'png',

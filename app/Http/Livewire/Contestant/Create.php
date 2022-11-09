@@ -12,21 +12,18 @@ class Create extends Component
     use HandlesMediaUploadExceptions;
 
     public $event;
-    public $file;
-
-    public $button;
-    public $mediable_type;
-    public $mediable_id;
-    public $media = [];
-    public $status = false;
-    public $user;
-
-    public $prefix;
+    public $image;
     public $max = (1024 * 1000); // KB * MB Max
-    public $model;
 
     public function render()
     {
         return view('livewire.contestant.create');
+    }
+
+    public function updatedImage()
+    {
+        $this->validate([
+            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
+        ]);
     }
 }

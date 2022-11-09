@@ -2,7 +2,7 @@
     aria-labelledby="modalLabelCreateAlbum" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form wire:submit.prevent="save">
+            <form wire:submit.prevent="save" method="POST">
                 <div class="modal-header">
                     @if ($modal->id)
                         <h5 class="modal-title" id="modalLabelCreateAlbum">

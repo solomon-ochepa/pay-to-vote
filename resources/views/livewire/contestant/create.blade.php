@@ -1,6 +1,8 @@
 <div wire:ignore.self class="col-md-8 col-lg-6 vstack gap-4">
     <div class="card">
         <div class="card-body">
+            <livewire:alerts />
+
             <form method="POST" enctype="multipart/form-data"
                 action="{{ route('event.contestant.store', ['event' => $event->slug]) }}">
                 @csrf
@@ -9,19 +11,22 @@
                     <h4 class="border-bottom">Personal Information</h4>
 
                     {{-- Pictures --}}
-                    <div class="col-md-12" style="max-height: 250px;">
-                        @if ($file and !empty($file->temporaryUrl()))
-                            <img src="{{ $file->temporaryUrl() }}" class="rounded mb-2" width="auto"
+                    <div class="col-md-12" style="max-height: 250px; height: auto;">
+                        @if ($image and !empty($image->temporaryUrl()))
+                            <img src="{{ $image->temporaryUrl() }}" class="rounded mb-2" width="auto"
                                 style="max-width: 100%; height: 100%">
-                        @elseif($media)
+                            {{-- @elseif($media)
                             <img src="{{ $media->getUrl() }}" class="rounded mb-2" width="auto"
-                                style="max-width: 100%">
+                                style="max-width: 100%"> --}}
                         @endif
 
                         <div class="input-group input-group-sm">
-                            <input type="file" name="file" class="form-control" id="file"
+                            <input type="file" name="image" class="form-control" id="image"
                                 aria-label="Upload Proof of payment" title="Upload your picture here" required
-                                wire:model="file" tooltip />
+                                wire:model="image" tooltip />
+                            @error('image')
+                                <small class="input-group-text">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     {{-- <div class="col-md-6"></div> --}}
