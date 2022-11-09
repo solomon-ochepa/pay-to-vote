@@ -9,8 +9,6 @@ use Livewire\Component;
 
 class VoteModal extends Component
 {
-    public $contestant;
-
     public $voter;
     public $amount = 0;
     public $votes = 0;
@@ -21,17 +19,20 @@ class VoteModal extends Component
      */
     public $vote_amount = 50;
 
+    public $modal;
+
     public function mount()
     {
-        if (!$this->contestant)
-            $this->contestant = new Contestant;
+        if (!$this->modal) {
+            $this->modal = new Contestant();
+        }
     }
 
-    protected $listeners = ['contestant'];
+    protected $listeners = ['modal_id'];
 
-    public function contestant($contestant)
+    public function modal_id($id)
     {
-        $this->contestant = Contestant::find($contestant);
+        return $this->modal = Contestant::find($id);
     }
 
     public function render()
@@ -75,7 +76,7 @@ class VoteModal extends Component
 
         // Save Vote (pending) & session
         $pending_vote = Vote::where([
-            'contestant_id' => $this->contestant->id,
+            'contestant_id' => $this->modal->id,
             'voter_id' => $voter->id,
             'active' => 0,
         ])->first();
@@ -87,7 +88,7 @@ class VoteModal extends Component
             ]);
         } else {
             $vote = Vote::create([
-                'contestant_id' => $this->contestant->id,
+                'contestant_id' => $this->modal->id,
                 'voter_id'      => $voter->id,
                 'total'         => $this->votes,
                 'amount'        => $this->amount,
