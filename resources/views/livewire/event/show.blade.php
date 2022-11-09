@@ -107,15 +107,13 @@
                         <div class="d-flex mt-3 justify-content-between">
                             <!-- Interested button -->
                             <div class="w-100">
-                                <button type="button" wire:click="$emit('contestant', {{ $contestant->id }})"
+                                <button type="button" wire:click="modal('{{ $contestant->id }}')"
                                     class="btn btn-sm btn-outline-success d-block" data-bs-toggle="modal"
                                     data-bs-target="#vote-modal">
                                     <i class="bi bi-hand-thumbs-up-fill me-1"></i>
                                     Vote
                                 </button>
                             </div>
-
-                            {{-- {{ $contestant }} --}}
 
                             <!-- Share -->
                             <div class="dropdown ms-3">
@@ -141,7 +139,3 @@
         @endforelse
     </div>
 </div>
-
-@push('modals')
-    <livewire:vote-modal :contestant="$contestant" />
-@endpush
