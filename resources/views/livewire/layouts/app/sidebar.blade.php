@@ -38,15 +38,16 @@
                             </div>
 
                             <!-- Info -->
-                            <h5 class="mb-0"> <a href="#!">
-                                    {{ request()->user()->first_name }} {{ request()->user()->last_name }}
-                                </a> </h5>
-                            <small>{{ request()->user()->username ?? 'User' }}</small>
+                            @auth
+                                <h5 class="mb-0"> <a href="#!">
+                                        {{ request()->user()->first_name }} {{ request()->user()->last_name }}
+                                    </a> </h5>
+                                <small>{{ request()->user()->username ?? 'User' }}</small>
 
-                            @isset(request()->user->about)
-                                <p class="mt-3">{{ request()->user->about ?? '' }}</p>
-                            @endisset
-
+                                @isset(request()->user->about)
+                                    <p class="mt-3">{{ request()->user->about ?? '' }}</p>
+                                @endisset
+                            @endauth
                             <!-- User stat START -->
                             <div class="hstack gap-2 gap-xl-3 justify-content-center">
                                 <!-- User stat item -->
@@ -93,7 +94,7 @@
                                         News </span></a>
                             </li> --}}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('office.event.index') }}">
+                                <a class="nav-link" href="{{ route('event.index') }}">
                                     <img class="me-2 h-20px fa-fw" src="/app/images/icon/calendar-outline-filled.svg"
                                         alt="">
                                     <span>Events</span>
@@ -153,5 +154,4 @@
             </div>
         </div>
     </nav>
-    <!-- Navbar END-->
 </div>
