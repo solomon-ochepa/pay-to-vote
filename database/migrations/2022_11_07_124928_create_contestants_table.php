@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('contestants', function (Blueprint $table) {
             $table->bigInteger('username')->unsigned();
+            $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
             //
             $table->uuid('id')->primary();
             $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
