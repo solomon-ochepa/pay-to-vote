@@ -50,6 +50,8 @@
 
     <!-- Styles -->
     @livewireStyles
+
+    @stack('css')
 </head>
 
 <body>
@@ -82,6 +84,8 @@
 
     <!-- Template Functions -->
     <script src="{{ asset('app/js/functions.js') }}"></script>
+
+    @stack('js')
 
     @livewireScripts
 </body>
