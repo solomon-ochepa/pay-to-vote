@@ -9,7 +9,7 @@
         <div class="col-md-8 col-lg-6 vstack gap-4">
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('office.event.store') }}">
+                    <form method="POST" action="{{ route('event.store') }}">
                         @csrf
 
                         <div class="row  g-3">

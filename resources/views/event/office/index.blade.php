@@ -19,7 +19,7 @@
                 <h1 class="h4 card-title">Discover Events</h1>
 
                 @can(['event.create'])
-                    <a class="btn btn-primary-soft" href="{{ route('office.event.create') }}" {{-- data-bs-toggle="modal" data-bs-target="#modalCreateEvents" --}}>
+                    <a class="btn btn-primary-soft" href="{{ route('event.create') }}" {{-- data-bs-toggle="modal" data-bs-target="#modalCreateEvents" --}}>
                         <i class="fa-solid fa-plus pe-1"></i>
                         Create event
                     </a>
@@ -64,7 +64,7 @@
                                 <div class="col-sm-6 col-xl-4">
                                     <div class="card h-100">
                                         <div class="position-relative">
-                                            <a href="{{ route('office.event.show', ['event' => $event->slug]) }}">
+                                            <a href="{{ route('event.show', ['event' => $event->slug]) }}">
                                                 <img class="img-fluid rounded-top"
                                                     src="{{ $event->media ?? asset('app') . '/images/events/01.jpg' }}"
                                                     alt="">
@@ -78,11 +78,11 @@
                                         <div class="card-body position-relative pt-0">
                                             <!-- Tag -->
                                             <a class="btn btn-xs btn-primary mt-n3"
-                                                href="{{ route('office.event.show', ['event' => $event->slug]) }}">
+                                                href="{{ route('event.show', ['event' => $event->slug]) }}">
                                                 {{ $event->tag ?? 'Event' }}
                                             </a>
                                             <h6 class="mt-3">
-                                                <a href="{{ route('office.event.show', ['event' => $event->slug]) }}">
+                                                <a href="{{ route('event.show', ['event' => $event->slug]) }}">
                                                     {{ Str::limit($event->name, 16) }}
                                                 </a>
                                             </h6>

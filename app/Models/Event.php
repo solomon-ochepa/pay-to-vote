@@ -53,4 +53,19 @@ class Event extends Model
         'start_at' => 'datetime',
         'end_at' => 'datetime',
     ];
+
+    public function contestants()
+    {
+        return $this->hasMany(Contestant::class);
+    }
+
+    public function votes()
+    {
+        return $this->hasManyThrough(Vote::class, Contestant::class);
+    }
+
+    public function voters()
+    {
+        return $this->hasManyThrough(Vote::class, Contestant::class);
+    }
 }
