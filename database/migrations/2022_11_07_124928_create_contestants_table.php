@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contestants', function (Blueprint $table) {
-            $table->string('username');
-            $table->integer('votes')->default(0)->nullable();
+            $table->bigInteger('username')->unsigned();
             //
             $table->uuid('id')->primary();
             $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
