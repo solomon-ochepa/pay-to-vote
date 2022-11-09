@@ -16,6 +16,16 @@ class Vote extends Model
      * @var string[]
      */
     protected $fillable = [
-        'event_id', 'contestant_id', 'user_id'
+        'contestant_id', 'voter_id', 'total', 'amount'
     ];
+
+    public function voter()
+    {
+        return $this->belongsTo(Voter::class);
+    }
+
+    public function contestant()
+    {
+        return $this->belongsTo(Contestant::class);
+    }
 }

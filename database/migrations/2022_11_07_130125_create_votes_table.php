@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
+            $table->foreignUuid('contestant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignUuid('voter_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->integer('total');
+            $table->decimal('amount');
+            $table->boolean('active')->default(0);
             //
             $table->uuid('id')->primary();
-            $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignUuid('contestant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignUuid('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

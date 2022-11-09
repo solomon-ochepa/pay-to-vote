@@ -46,7 +46,9 @@ class VoteController extends Controller
      */
     public function show(Vote $vote)
     {
-        //
+        return view('vote.show', [
+            'vote' => $vote
+        ]);
     }
 
     /**
