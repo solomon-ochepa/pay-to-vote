@@ -33,21 +33,26 @@
                                                 src="{{ asset('app') }}/images/avatar/09.jpg" alt=""></a>
                                     </div>
                                     <h6 class="card-title mb-1 mt-3">
+                                        <div># {{ $contestant->number }}</div>
+                                        <hr class="my-1" />
                                         <a href="#!">
-                                            {{ Str::limit($contestant->user->first_name . ' ' . $contestant->user->last_name, 16) }}
+                                            {{ Str::limit($contestant->user->first_name . ' ' . $contestant->user->last_name, 14) }}
                                         </a>
                                     </h6>
                                     <p class="mb-0 small lh-sm">
-                                        <i class="fas fa-thumbs-up text-success"></i>
-                                        1
+                                        <i class="fas fa-trophy text-success"></i>
+                                        {{ $contestant->votes->count() }}
                                     </p>
                                 </div>
 
                                 <!-- Card footer -->
                                 <div class="card-footer p-2 border-0">
-                                    <button class="btn btn-sm btn-primary-soft w-100">
+                                    <a href="#" wire:click="modal('{{ $contestant->id }}')"
+                                        class="btn btn-sm btn-outline-success w-100 d-block" data-bs-toggle="modal"
+                                        data-bs-target="#vote-modal">
+                                        <i class="bi bi-hand-thumbs-up-fill me-1"></i>
                                         Vote
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
