@@ -70,7 +70,7 @@ class EventController extends Controller
         if ($event) {
             session()->flash('status', 'Event created successfully!');
 
-            return redirect()->route('office.event.show', ['event' => $event->slug]);
+            return redirect()->route('event.show', ['event' => $event->slug]);
         } else {
             return back()->withInput();
         }
