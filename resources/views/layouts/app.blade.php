@@ -68,6 +68,11 @@
         </div>
     </main>
 
+    <!-- Vote from anywhere -->
+    @push('modals')
+        <livewire:vote-modal />
+    @endpush
+
     @stack('modals')
 
     <!-- Bootstrap JS -->
