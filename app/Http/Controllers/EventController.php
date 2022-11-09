@@ -13,7 +13,7 @@ class EventController extends Controller
     {
         $this->data['title'] = 'Apartments';
 
-        $this->middleware('auth');
+        // $this->middleware('auth');
         // $this->middleware(['permission:event.list'])->only('index');
         // $this->middleware(['permission:event.create'])->only('create', 'store');
         // $this->middleware(['permission:event.edit'])->only('edit', 'update');
