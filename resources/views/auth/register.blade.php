@@ -13,13 +13,40 @@
     <!-- Form START -->
 
     <form method="POST" action="{{ route('register') }}" class="mt-4">
-        <!-- Phone -->
+        <h4 class="border-bottom text-start">Personal information</h4>
+        <!-- First name -->
         <div class="mb-3 input-group-lg">
-            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter phone number"
-                :value="old('first_name')" autofocus autocomplete="phone" required>
-            <small class="form-text text-start d-block">We'll never share your phone number with anyone else.</small>
+            <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First name"
+                :value="old('first_name')" autofocus autocomplete="first_name" required>
         </div>
 
+        <!-- Last name -->
+        <div class="mb-3 input-group-lg">
+            <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name"
+                :value="old('last_name')" required>
+        </div>
+
+        <h4 class="border-bottom text-start">Contact</h4>
+        <!-- Address -->
+        <div class="mb-3 input-group-lg">
+            <input type="text" id="address" name="address" class="form-control" placeholder="Home address"
+                :value="old('address')" autocomplete="address" required>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3 input-group-lg">
+            <input type="email" id="email" name="email" class="form-control"
+                placeholder="Email address (optional)" :value="old('email')" required>
+            <small class="form-text text-start d-block">We'll never share your details with anyone else.</small>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3 input-group-lg">
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Telephone number"
+                :value="old('phone')" required>
+        </div>
+
+        <h4 class="border-bottom text-start">Security</h4>
         <!-- New password -->
         <div class="mb-3 position-relative">
             <div class="input-group input-group-lg">

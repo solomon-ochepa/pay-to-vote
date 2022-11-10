@@ -41,12 +41,19 @@
         <div class="container">
             <div class="row justify-content-center align-items-center vh-100 py-5">
                 <div class="col-sm-10 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
-                    <div class="card card-body text-center p-4 p-sm-5">
-                        @isset($title)
-                            {!! $title !!}
-                        @endisset
+                    <div class="card">
+                        <livewire:alerts />
 
-                        {{ $slot }}
+                        <x-jet-validation-errors class="alert alert-success alert-dismissible fade show mb-3 "
+                            role="alert" />
+
+                        <div class="card-body text-center">
+                            @isset($title)
+                                {!! $title !!}
+                            @endisset
+
+                            {{ $slot }}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<div class="col-lg-3">
+<div>
     <!-- Advanced filter responsive toggler START -->
     <div class="d-flex align-items-center d-lg-none">
         <button class="border-0 bg-transparent" type="button" data-bs-toggle="offcanvas"
@@ -28,54 +28,57 @@
 
                     <!-- Card body START -->
                     <div class="card-body pt-0">
-                        <div class="text-center">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-lg mt-n5 mb-3">
-                                <a href="#!">
-                                    <img class="avatar-img rounded border border-white border-3"
-                                        src="/app/images/avatar/07.jpg" alt="">
-                                </a>
-                            </div>
+                        @auth
+                            <div class="text-center">
+                                <!-- Avatar -->
+                                <div class="avatar avatar-lg mt-n5 mb-3">
+                                    <a href="#!">
+                                        <img class="avatar-img rounded border border-white border-3"
+                                            src="{{ Auth::user()->profile_photo_url }}" alt="">
+                                    </a>
+                                </div>
 
-                            <!-- Info -->
-                            @auth
-                                <h5 class="mb-0"> <a href="#!">
+                                <!-- Info -->
+                                <h5 class="mb-0">
+                                    <a href="#!">
                                         {{ request()->user()->first_name }} {{ request()->user()->last_name }}
-                                    </a> </h5>
+                                    </a>
+                                </h5>
                                 <small>{{ request()->user()->username ?? 'User' }}</small>
 
                                 @isset(request()->user->about)
                                     <p class="mt-3">{{ request()->user->about ?? '' }}</p>
                                 @endisset
-                            @endauth
-                            <!-- User stat START -->
-                            <div class="hstack gap-2 gap-xl-3 justify-content-center">
-                                <!-- User stat item -->
-                                <div>
-                                    <h6 class="mb-0">0</h6>
-                                    <small>Voted</small>
-                                </div>
-                                <!-- Divider -->
-                                <div class="vr"></div>
-                                <!-- User stat item -->
-                                <div>
-                                    <h6 class="mb-0">0</h6>
-                                    <small>Contested</small>
-                                </div>
-                                <!-- Divider -->
-                                {{-- <div class="vr"></div>
+
+                                <!-- User stat START -->
+                                <div class="hstack gap-2 gap-xl-3 justify-content-center">
+                                    <!-- User stat item -->
+                                    <div>
+                                        <h6 class="mb-0">0</h6>
+                                        <small>Voted</small>
+                                    </div>
+                                    <!-- Divider -->
+                                    <div class="vr"></div>
+                                    <!-- User stat item -->
+                                    <div>
+                                        <h6 class="mb-0">0</h6>
+                                        <small>Contested</small>
+                                    </div>
+                                    <!-- Divider -->
+                                    {{-- <div class="vr"></div>
                                 <!-- User stat item -->
                                 <div>
                                     <h6 class="mb-0">365</h6>
                                     <small>Following</small>
                                 </div> --}}
+                                </div>
+                                <!-- User stat END -->
                             </div>
-                            <!-- User stat END -->
-                        </div>
 
-                        <!-- Divider -->
-                        <hr>
+                            <!-- Divider -->
+                            <hr>
 
+                        @endauth
                         <!-- Side Nav START -->
                         <ul class="nav nav-link-secondary flex-column fw-bold gap-2">
                             {{-- <li class="nav-item">
@@ -119,10 +122,12 @@
                         <!-- Side Nav END -->
                     </div>
                     <!-- Card body END -->
-                    <!-- Card footer -->
-                    <div class="card-footer text-center py-2">
-                        <a class="btn btn-link btn-sm" href="{{ route('profile.show') }}">View Profile </a>
-                    </div>
+
+                    @auth
+                        <div class="card-footer text-center py-2">
+                            <a class="btn btn-link btn-sm" href="{{ route('profile.show') }}">View Profile </a>
+                        </div>
+                    @endauth
                 </div>
                 <!-- Card END -->
 

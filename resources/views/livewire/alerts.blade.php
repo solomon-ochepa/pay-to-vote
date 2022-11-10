@@ -1,9 +1,15 @@
 <div>
-    <x-jet-validation-errors class="mb-4" />
-
     @if (session('status'))
-        <div class="mb-4 font-medium text-sm text-green-600">
-            {{ session('status') }}
+        <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+            {!! session('status') !!}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+            Error: {!! session('error') !!}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
 </div>

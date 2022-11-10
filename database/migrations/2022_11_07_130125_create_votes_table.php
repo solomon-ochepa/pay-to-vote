@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('votes', function (Blueprint $table) {
+            $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignUuid('contestant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignUuid('voter_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('total');

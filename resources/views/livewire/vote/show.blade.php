@@ -9,22 +9,13 @@
             <p>Amount: {{ $vote->amount }}</p>
         </div>
 
-        <div class="card-footer">
-            {{-- @if ($payment_method == payment_method('paystack')) --}}
-            <button type="button" class="btn btn-sm btn-primary" aria-label="Pay now" onclick="pay()">
-                {{ __('Pay') }}
-            </button>
-            @if ($vote->status_code = 1)
-                @push('js')
-                    <script>
-                        // document.addEventListener('livewire:load', function() {
-                        return pay();
-                        // })
-                    </script>
-                @endpush
-            @endif
-            {{-- @endif --}}
-        </div>
+        @if (!$vote->active and $vote->status_code == 1)
+            <div class="card-footer">
+                <button type="button" class="btn btn-sm btn-primary" aria-label="Pay now" onclick="pay()">
+                    {{ __('Pay') }}
+                </button>
+            </div>
+        @endif
     </div>
 </div>
 
@@ -34,31 +25,25 @@
     <script>
         // document.addEventListener('livewire:load', function() {
         var paystackIframeOpened = false;
-        var data = @js($data);
-        var api = @js($api);
 
         var handler = PaystackPop.setup({
-            key: api.key,
-            ref: data.ref,
-            amount: data.amount * 100,
-            email: data.email, // customer email
-            label: data.label, // payment description
-            phone: data.phone,
+            key: @js($api['key']),
+            ref: @js($vote->id),
+            amount: (@js($vote->amount) * 100),
+            email: @js($vote->voter->phone) + "@" + @js(Str::contains(env('APP_DOMAIN'), '.test') ? 'okitechnologies.com' : env('APP_DOMAIN')),
+            label: "Vote #" + @js($vote->contestant->number),
+            phone: @js($vote->voter->phone),
             metadata: {
-                invoiceid: data.ref,
-                customername: data.voter.name,
+                invoiceid: @js($vote->id),
+                customername: @js($vote->voter->name),
                 custom_fields: [{
                     display_name: "Votes",
                     variable_name: "votes",
-                    value: data.total
+                    value: @js($vote->total)
                 }, {
-                    display_name: "Amount",
-                    variable_name: "amount",
-                    value: data.amount
-                }, {
-                    display_name: "Event name",
+                    display_name: "Event",
                     variable_name: "event_name",
-                    value: data.contestant.event.name,
+                    value: @js($vote->contestant->event->name),
                 }]
             },
 
@@ -98,4 +83,15 @@
         // @/this.on('foo', () => {})
         // })
     </script>
+
+    @if ($vote->status_code == 1)
+        @push('js')
+            <script>
+                document.addEventListener('livewire:load', function() {
+                    pay();
+                })
+            </script>
+        @endpush
+    @endif
+
 @endpush

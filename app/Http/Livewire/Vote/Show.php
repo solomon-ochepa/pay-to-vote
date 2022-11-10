@@ -43,26 +43,28 @@ class Show extends Component
         $response = Http::withToken(config('paystack.secretKey'))->get("https://api.paystack.co/transaction/verify/{$this->vote->id}");
 
         if ($response->failed()) {
-            session(['message', 'Payment failed.']);
+            session(['status', 'Payment failed.']);
 
             // Transaction: update
-            $this->vote->update(['status_code' => status('failed')]);
+            $this->vote->status_code = 4; // 4 = failed
+            $this->vote->save();
             return;
         }
 
         // Transaction: update
-        $this->vote->update(['active' => status('processing')]);
+        $this->vote->status_code = 2; // 2 = processing
+        $this->vote->save();
 
         $payment = $response->object()->data;
 
         if ($response->successful() and $payment->status === "success") {
             // Transaction: update
-            $this->vote->update([
-                'status_code' => status('successful'),
-            ]);
+            $this->vote->status_code = 3;
+            $this->vote->active = 1;
+            $this->vote->save();
 
             // Notification(site):
-            session()->flash('status', "Payment successful.");
+            session()->flash('status', "Vote successful.");
 
             // @todo: refresh the component with ajax instead
             return redirect(route('vote.show', ['vote' => $this->vote->id]));

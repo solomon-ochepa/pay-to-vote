@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Vote;
 
 use App\Models\Contestant;
 use App\Models\Vote;
 use App\Models\Voter;
 use Livewire\Component;
 
-class VoteModal extends Component
+class Modal extends Component
 {
     public $voter;
     public $amount = 0;
@@ -37,7 +37,7 @@ class VoteModal extends Component
 
     public function render()
     {
-        return view('livewire.vote-modal');
+        return view('livewire.vote.modal');
     }
 
     /**
@@ -76,24 +76,22 @@ class VoteModal extends Component
 
         // Save Vote (pending) & session
         $pending_vote = Vote::where([
+            'event_id' => $this->modal->event->id,
             'contestant_id' => $this->modal->id,
             'voter_id' => $voter->id,
-            'active' => 0,
+            'status_code' => 1, // pending
         ])->first();
 
-        if ($pending_vote) {
-            $vote = $pending_vote->update([
-                'total'     => $this->votes,
-                'amount'    => $this->amount,
-            ]);
-        } else {
-            $vote = Vote::create([
-                'contestant_id' => $this->modal->id,
-                'voter_id'      => $voter->id,
-                'total'         => $this->votes,
-                'amount'        => $this->amount,
-            ]);
-        }
+        if ($pending_vote)
+            $pending_vote->delete();
+
+        $vote = Vote::create([
+            'event_id'      => $this->modal->event->id,
+            'contestant_id' => $this->modal->id,
+            'voter_id'      => $voter->id,
+            'total'         => $this->votes,
+            'amount'        => $this->amount,
+        ]);
 
         session()->flash('status', "Your vote is processing...");
 

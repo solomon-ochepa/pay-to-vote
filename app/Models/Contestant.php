@@ -19,7 +19,7 @@ class Contestant extends Model
      * @var string[]
      */
     protected $fillable = [
-        'number', 'event_id', 'user_id', 'votes'
+        'first_name', 'last_name', 'number', 'event_id', 'user_id', 'votes', 'note',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Contestant extends Model
     {
         return [
             'slug' => [
-                'source' => 'username'
+                'source' => ['first_name', 'last_name']
             ]
         ];
     }
@@ -43,7 +43,7 @@ class Contestant extends Model
      */
     public function getRouteKeyName()
     {
-        return 'username';
+        return 'slug';
     }
 
     public function votes()

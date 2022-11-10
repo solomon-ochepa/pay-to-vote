@@ -58,7 +58,6 @@
                         </ul>
                     </li> --}}
 
-                    <!-- Nav item 2 Pages -->
                     {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Pages</a>
@@ -116,7 +115,6 @@
                         </ul>
                     </li> --}}
 
-                    <!-- Nav item 3 Post -->
                     {{-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="postMenu" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Account </a>
@@ -150,27 +148,33 @@
                         </ul>
                     </li> --}}
 
-                    <!-- Nav item 4 Mega menu -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('event.index') }}">Events</a>
                     </li>
+
+                    @can(['event.create'])
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('event.create') }}">
+                                <i class="fas fa-edit me-1"></i>
+                                Add Event
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
             </div>
-            <!-- Main navbar END -->
 
-            <!-- Nav right START -->
             <ul class="nav flex-nowrap align-items-center ms-sm-3 list-unstyled">
                 {{-- <li class="nav-item ms-2">
                     <a class="nav-link icon-md btn btn-light p-0" href="messaging.html">
                         <i class="bi bi-chat-left-text-fill fs-6"> </i>
                     </a>
                 </li> --}}
-                <li class="nav-item ms-2">
+                {{-- <li class="nav-item ms-2">
                     <a class="nav-link icon-md btn btn-light p-0 disabled" href="javascript://">
                         <i class="bi bi-gear-fill fs-6"> </i>
                     </a>
-                </li>
-                <li class="nav-item dropdown ms-2">
+                </li> --}}
+                {{-- <li class="nav-item dropdown ms-2">
                     <a class="nav-link icon-md btn btn-light p-0 disabled" href="#" id="notifDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         <span class="badge-notif animation-blink"></span>
@@ -270,13 +274,17 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item ms-2 dropdown">
                     <a class="nav-link btn icon-md p-0" href="#" id="profileDropdown" role="button"
                         data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="avatar-img rounded-2" src="/app/images/avatar/07.jpg" alt="">
+                        @auth
+                            <img class="avatar-img rounded-2" src="{{ Auth::user()->profile_photo_url }}" alt="">
+                        @else
+                            <img class="avatar-img rounded-2" src="{{ asset('user.svg') }}" alt="">
+                        @endauth
                     </a>
 
                     <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
@@ -287,8 +295,7 @@
                                 <div class="d-flex align-items-center position-relative">
                                     <!-- Avatar -->
                                     <div class="avatar me-3">
-                                        <img class="avatar-img rounded-circle" src="/app/images/avatar/07.jpg"
-                                            alt="avatar">
+                                        <img class="avatar-img rounded-circle" src="{{ asset('user.svg') }}" alt="avatar">
                                     </div>
                                     <div>
                                         <a class="h6 stretched-link" href="#">
@@ -330,20 +337,31 @@
                                     @csrf
                                 </form>
                             </li>
-
-                            <!-- Dark mode -->
+                        @else
                             <li>
-                                <hr class="dropdown-divider">
+                                <a class="dropdown-item" href="{{ route('login') }}">
+                                    <i class="fas fa-user-tie me-2"></i>Login
+                                </a>
                             </li>
                             <li>
-                                <div class="modeswitch-wrap" id="darkModeSwitch">
-                                    <div class="modeswitch-item">
-                                        <div class="modeswitch-icon"></div>
-                                    </div>
-                                    <span>Dark mode</span>
-                                </div>
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    <i class="fas fa-user-plus me-2"></i>Register
+                                </a>
                             </li>
                         @endauth
+
+                        <!-- Dark mode -->
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <div class="modeswitch-wrap" id="darkModeSwitch">
+                                <div class="modeswitch-item">
+                                    <div class="modeswitch-icon"></div>
+                                </div>
+                                <span>Dark mode</span>
+                            </div>
+                        </li>
                     </ul>
                 </li>
             </ul>

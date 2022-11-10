@@ -15,7 +15,7 @@ class ContestantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Event $event)
     {
         //
     }
@@ -39,23 +39,18 @@ class ContestantController extends Controller
      */
     public function store(Event $event, Request $request)
     {
-        $mimes = ['jpg', 'jpeg', 'png', 'svg'];
-
         $request->validate([
             'image' => ['bail', 'required', 'image', "max:1024", "mimes:jpg,jpeg,png,svg"],
         ]);
 
-        $validated_user_details = $request->validate([
+        $request->validate([
             'first_name' => ['required', 'string', 'max:32'],
             'last_name' => ['required', 'string', 'max:32'],
-            'username' => ['required', 'string', 'max:32'],
-            'phone' => ['required', 'string', 'max:32'],
-            'email' => ['required', 'string', 'email', 'max:32']
+            'note' => ['nullable', 'string', 'max:200']
         ]);
 
         // Update User
         $user = auth()->user();
-        $user->update($validated_user_details);
 
         // Contestant Number
         $latest = Contestant::latest()->first();
@@ -68,51 +63,46 @@ class ContestantController extends Controller
         $contestant = Contestant::firstOrCreate([
             'user_id' => $user->id,
             'event_id' => $event->id,
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
         ], [
             'number' => $number,
         ]);
 
-
+        // Check for existing image
         if ($contestant->media and $contestant->media->first())
-            $this->media = $contestant->media->first();
+            $this->media = $contestant->media;
         else
             $this->media = null;
 
         // Upload file
         $upload = MediaUploader::fromSource($request->file('image'))
             ->toDisk('public')
-            ->toDirectory('pictures/')
-            // ->setAllowedExtensions(['jpg', 'jpeg', 'png', 'svg'])
-            // ->setAllowedAggregateTypes(['image/jpeg'])
-            // ->setAllowUnrecognizedTypes(true)
+            ->toDirectory('pictures/contestants/')
             ->onDuplicateUpdate()
             ->useHashForFilename()
-            ->makePrivate()
+            ->makePublic()
             ->upload();
 
         // Media table entry
         if ($upload) {
             if ($this->media) {
                 // Replace existing media
-                $contestant->syncMedia($upload, ['profile']);
+                // $contestant->detachMedia($this->media);
+                // $this->media->each->delete();
 
-                session()->flash('status', 'Document updated successfully.');
-                return back();
+                $contestant->syncMedia($upload, 'image');
+                session()->flash('status', 'Image updated successfully.');
             } else {
-                // Store new media
-                if ($contestant) {
-                    $contestant->attachMedia($upload, ['profile']);
-                }
-
-                session()->flash('status', 'Document uploaded successfully.');
-                return back();
+                $contestant->attachMedia($upload, 'image');
+                session()->flash('status', 'Image uploaded successfully.');
             }
         } else {
-            session()->flash('status', 'Error uploading document');
+            session()->flash('status', 'Image connot be uploaded.');
             return back()->withInput();
         }
 
-        session()->flash('status', "Contestant ({$contestant->number}) registered successfully.");
+        session()->flash('status', "Contestant ID: <strong>{$contestant->number}</strong> <br/ >Note: Please share this ID with your family, friends and well wishers to vote for you!");
 
         return redirect()->route('event.show', ['event' => $event->slug]);
     }
@@ -123,7 +113,7 @@ class ContestantController extends Controller
      * @param  \App\Models\Contestant  $contestant
      * @return \Illuminate\Http\Response
      */
-    public function show(Contestant $contestant)
+    public function show(Event $event, Contestant $contestant)
     {
         //
     }
@@ -134,7 +124,7 @@ class ContestantController extends Controller
      * @param  \App\Models\Contestant  $contestant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contestant $contestant)
+    public function edit(Event $event, Contestant $contestant)
     {
         //
     }
@@ -146,7 +136,7 @@ class ContestantController extends Controller
      * @param  \App\Models\Contestant  $contestant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contestant $contestant)
+    public function update(Request $request, Event $event, Contestant $contestant)
     {
         //
     }
@@ -157,7 +147,7 @@ class ContestantController extends Controller
      * @param  \App\Models\Contestant  $contestant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contestant $contestant)
+    public function destroy(Event $event, Contestant $contestant)
     {
         //
     }

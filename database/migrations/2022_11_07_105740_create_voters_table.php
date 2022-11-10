@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('voters', function (Blueprint $table) {
             $table->string('name');
             $table->string('phone');
+            $table->boolean('active')->default(1);
             $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
             //
             $table->uuid('id')->primary();

@@ -1,5 +1,9 @@
 <x-app-layout>
-    {{ $slot }}
+    <div class="col-lg-8 vstack gap-4">
+        {{ $slot }}
+    </div>
 
-    <livewire:layouts.app.sidebar-right />
+    <div class="col-lg-4">
+        <livewire:layouts.app.sidebar-right />
+    </div>
 </x-app-layout>

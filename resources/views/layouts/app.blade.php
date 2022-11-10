@@ -60,20 +60,26 @@
     <main>
         <!-- Container START -->
         <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <livewire:alerts />
+                </div>
+            </div>
+
             <div class="row g-4">
-                {{-- <div class="col-md-8 col-lg-6 vstack gap-4"> --}}
                 {{ $slot }}
-                {{-- </div> --}}
             </div>
         </div>
     </main>
 
     <!-- Vote from anywhere -->
     @push('modals')
-        <livewire:vote-modal />
+        <livewire:vote.modal />
     @endpush
 
     @stack('modals')
+
+    <script src="{{ asset('vendors/jquery/jquery.min.js') }}"></script>
 
     <!-- Bootstrap JS -->
     <script src="{{ asset('app') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

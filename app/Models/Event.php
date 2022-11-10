@@ -68,6 +68,11 @@ class Event extends Model
 
     public function voters()
     {
-        return $this->hasManyThrough(Vote::class, Contestant::class);
+        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->distinct();
+    }
+
+    public function voted()
+    {
+        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->count();
     }
 }

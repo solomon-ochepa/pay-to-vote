@@ -16,7 +16,7 @@ class Vote extends Model
      * @var string[]
      */
     protected $fillable = [
-        'contestant_id', 'voter_id', 'total', 'amount'
+        'event_id', 'contestant_id', 'voter_id', 'total', 'amount'
     ];
 
     public function voter()

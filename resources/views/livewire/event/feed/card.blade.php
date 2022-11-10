@@ -17,6 +17,40 @@
 
     <!-- Card body -->
     <div class="card-body">
+
+        @php
+            $image = ($event->media->first() and $event->media->first()->getUrl()) ? $event->media->first()->getUrl() : asset('app/images/events/06.jpg');
+        @endphp
+        <div class="card card-body card-overlay-bottom border-0"
+            style="background-image:url({{ $image }}); background-position: center; background-size: cover; background-repeat: no-repeat;">
+            {{-- Stert at date --}}
+            <div class="row g-3 justify-content-between opacity-75">
+                <div class="col-lg-2">
+                    <div class="bg-mode text-center rounded overflow-hidden p-1 d-inline-block">
+                        <div class="bg-primary p-2 text-white rounded-top small lh-1">
+                            {{ $event->start_at->gt(now()) ? 'Starting' : 'Started' }}
+                        </div>
+                        <h5 class="mb-0 py-2 lh-1">{{ $event->start_at->format('M d, Y') }}</h5>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Name --}}
+            <div class="row g-3 justify-content-between align-items-center mt-5 pt-5 position-relative z-index-9">
+                <div class="col-lg-9">
+                    <h1 class="h3 mb-1 text-white">{{ Str::limit($event->name, 32) }}</h1>
+                    <a class="text-white" href="#" target="_blank">
+                        #{{ $event->slug }}
+                    </a>
+                </div>
+
+                {{-- Action button --}}
+                <div class="col-lg-3 text-lg-end">
+                    ...
+                </div>
+            </div>
+        </div>
+
         @if ($count = $event->contestants->count())
             <div class="tiny-slider arrow-hover">
                 <div class="tiny-slider-inner {{ $count > 1 ? 'ms-n4' : '' }}" data-arrow="true" data-dots="false"
@@ -42,12 +76,12 @@
                                         <div># {{ $contestant->number }}</div>
                                         <hr class="my-1" />
                                         <a href="#!">
-                                            {{ Str::limit($contestant->user->first_name . ' ' . $contestant->user->last_name, 14) }}
+                                            {{ Str::limit($contestant->first_name . ' ' . $contestant->last_name, 14) }}
                                         </a>
                                     </h6>
                                     <p class="mb-0 small lh-sm">
                                         <i class="fas fa-trophy text-success"></i>
-                                        {{ $contestant->votes->count() }}
+                                        {{ $contestant->votes->where('active', 1)->sum('total') }}
                                     </p>
                                 </div>
 
@@ -66,7 +100,6 @@
                 </div>
             </div>
         @else
-            Processing...
         @endif
     </div>
 </div>

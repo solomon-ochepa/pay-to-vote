@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Plank\Mediable\Facades\MediaUploader;
 
 class EventController extends Controller
 {
     public $data;
+    public $media;
+    public $max = 1024;
 
     public function __construct()
     {
@@ -29,7 +32,7 @@ class EventController extends Controller
     {
         $events = Event::all();
 
-        return view('event.office.index', [
+        return view('event.index', [
             'events' => $events,
         ]);
     }
@@ -41,7 +44,12 @@ class EventController extends Controller
      */
     public function create()
     {
-        return view('event.office.create');
+        $this->middleware(['auth', 'can:edit.event']);
+        if (!auth()->user()->is_admin) {
+            return redirect()->route('event.index')->with('status', "You can't create Event!");
+        }
+
+        return view('event.create');
     }
 
     /**
@@ -52,11 +60,17 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $this->middleware(['auth', 'can:edit.event']);
+        if (!auth()->user()->is_admin) {
+            return redirect()->route('event.index')->with('status', "You can't create Event!");
+        }
+
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:100'],
+            'name' => ['required', 'string', 'max:120'],
             'start_at' => ['required', 'date'],
             'end_at' => ['required', 'date'],
             'active' => ['nullable', 'string'],
+            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
         ]);
 
         $event = Event::firstOrCreate([
@@ -67,13 +81,44 @@ class EventController extends Controller
             'active' => $validated['active'] == 'on' ? 1 : 0,
         ]);
 
-        if ($event) {
-            session()->flash('status', 'Event created successfully!');
-
-            return redirect()->route('event.show', ['event' => $event->slug]);
-        } else {
+        if (!$event) {
+            session()->flash('status', 'Connot create Event');
             return back()->withInput();
         }
+
+        // Upload file
+        $upload = MediaUploader::fromSource($request->file('image'))
+            ->toDisk('public')
+            ->toDirectory('pictures/events/')
+            ->onDuplicateUpdate()
+            ->useHashForFilename()
+            ->makePublic()
+            ->upload();
+
+        // Check for existing image
+        if ($event->media and $event->media->first())
+            $this->media = $event->media->first();
+        else
+            $this->media = null;
+
+        // Media
+        if ($upload) {
+            if ($this->media) {
+                // Replace media
+                $event->syncMedia($upload, 'image');
+                session()->flash('status', 'Image updated successfully.');
+            } else {
+                // Store media
+                $event->attachMedia($upload, 'image');
+                session()->flash('status', 'Image uploaded successfully.');
+            }
+        } else {
+            session()->flash('status', 'Image cannot be uploaded.');
+            return back()->withInput();
+        }
+
+        session()->flash('status', 'Event created successfully!');
+        return redirect()->route('event.show', ['event' => $event->slug]);
     }
 
     /**
@@ -84,7 +129,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('event.office.show', [
+        return view('event.show', [
             'event' => $event,
         ]);
     }

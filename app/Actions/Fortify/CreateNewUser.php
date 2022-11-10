@@ -21,23 +21,32 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'first_name'    => ['nullable', 'string', 'max:32'],
-            'last_name'     => ['nullable', 'string', 'max:32'],
+            'first_name'    => ['required', 'string', 'max:32'],
+            'last_name'     => ['required', 'string', 'max:32'],
             'username'      => ['nullable', 'string', 'max:16', 'unique:users'],
-            'phone'         => ['required', 'string', 'max:32', 'unique:users'],
+            'phone'         => ['required', 'numeric', 'unique:users'],
             'email'         => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'address'       => ['nullable', 'string', 'max:255'],
             'password'      => $this->passwordRules(),
             'terms'         => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        return User::firstOrCreate([
-            'username'      => $input['username'] ?? '',
+        $user = User::firstOrCreate([
             'phone'         => $input['phone'],
             'email'         => $input['email'] ?? '',
         ], [
-            'first_name'    => $input['first_name'] ?? '',
-            'last_name'     => $input['last_name'] ?? '',
+            'first_name'    => $input['first_name'],
+            'last_name'     => $input['last_name'],
+            'address'       => $input['address'],
             'password'      => Hash::make($input['password']),
         ]);
+
+        if ($user) {
+            session()->flash('status', "Your account has been created successfully.");
+        } else {
+            session()->flash('status', "Sorry, your account cannot be created. Contact support for more details.");
+        }
+
+        return $user;
     }
 }

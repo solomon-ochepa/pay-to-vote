@@ -1,3 +1,3 @@
 <x-app-sidebar-layout>
-    <livewire:event.show :event="$event" />
+    <livewire:event.create />
 </x-app-sidebar-layout>
