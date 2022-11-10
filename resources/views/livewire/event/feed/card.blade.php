@@ -17,7 +17,6 @@
 
     <!-- Card body -->
     <div class="card-body">
-
         @php
             $image = ($event->media->first() and $event->media->first()->getUrl()) ? $event->media->first()->getUrl() : asset('app/images/events/06.jpg');
         @endphp
@@ -52,7 +51,7 @@
         </div>
 
         @if ($count = $event->contestants->count())
-            <div class="tiny-slider arrow-hover">
+            <div class="tiny-slider arrow-hover mt-3">
                 <div class="tiny-slider-inner {{ $count > 1 ? 'ms-n4' : '' }}" data-arrow="true" data-dots="false"
                     data-items-xl="3" data-items-lg="2" data-items-md="2" data-items-sm="2" data-items-xs="1"
                     data-gutter="12" data-edge="30">
