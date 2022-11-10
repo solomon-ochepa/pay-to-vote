@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-12 vstack gap-3">
     @php
         $image = ($event->media->first() and $event->media->first()->getUrl()) ? $event->media->first()->getUrl() : asset('app/images/events/06.jpg');
     @endphp
