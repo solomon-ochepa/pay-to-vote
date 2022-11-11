@@ -27,7 +27,7 @@ class ContestantController extends Controller
      */
     public function create(Event $event)
     {
-        // restrict multiple reg
+        // restrict multiple reg?
         return view('contestant.create', ['event' => $event]);
     }
 
@@ -44,9 +44,9 @@ class ContestantController extends Controller
         ]);
 
         $request->validate([
-            'first_name' => ['required', 'string', 'max:32'],
-            'last_name' => ['required', 'string', 'max:32'],
-            'note' => ['nullable', 'string', 'max:200']
+            'first_name'    => ['required', 'string', 'max:32'],
+            'last_name'     => ['required', 'string', 'max:32'],
+            'about'         => ['nullable', 'string', 'max:800']
         ]);
 
         // Update User
@@ -115,7 +115,7 @@ class ContestantController extends Controller
      */
     public function show(Event $event, Contestant $contestant)
     {
-        //
+        return view('contestant.show', ['contestant' => $contestant]);
     }
 
     /**
