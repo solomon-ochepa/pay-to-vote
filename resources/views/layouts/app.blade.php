@@ -60,6 +60,9 @@
     <main>
         <!-- Container START -->
         <div class="container">
+
+            @stack('widgets.top')
+
             <div class="row">
                 <div class="col-12">
                     <livewire:alerts />
@@ -69,6 +72,9 @@
             <div class="row g-4">
                 {{ $slot }}
             </div>
+
+            @stack('widgets.buttom')
+
         </div>
     </main>
 
