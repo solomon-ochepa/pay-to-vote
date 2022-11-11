@@ -100,10 +100,11 @@
                             // dd($event->media->first());
                             $image = $contestant->media->first() ? $contestant->media->first()->getUrl() : asset('user.svg');
                         @endphp
-                        {{-- <a href="{{ route('event.show', ['event' => $event->slug]) }}"> --}}
-                        <img class="img-fluid rounded-top" src="{{ $image }}" alt=""
-                            style="max-height: 250px;">
-                        {{-- </a> --}}
+                        <a
+                            href="{{ route('event.contestant.show', ['event' => $contestant->event->slug, 'contestant' => $contestant->slug]) }}">
+                            <img class="img-fluid rounded-top" src="{{ $image }}" alt=""
+                                style="max-height: 250px;">
+                        </a>
 
                         <button type="button" data-bs-toggle="modal" data-bs-target="#vote-modal"
                             class="badge bg-success text-white mt-2 me-2 position-absolute top-0 end-0 shadow border border-0"
