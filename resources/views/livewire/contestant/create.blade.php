@@ -43,8 +43,8 @@
 
                 {{-- Note --}}
                 <div class="col-md-12">
-                    <label for="note" class="form-label">Comment (optional)</label>
-                    <textarea class="form-control" id="note" name="note" placeholder="What's on your mind?" :value="old('note')"></textarea>
+                    <label for="about" class="form-label">Comment (optional)</label>
+                    <textarea class="form-control" id="about" name="about" placeholder="What's on your mind?" :value="old('about')"></textarea>
                 </div>
 
                 <div class="col-12">
