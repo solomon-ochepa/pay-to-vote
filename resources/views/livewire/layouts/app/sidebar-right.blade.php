@@ -7,7 +7,10 @@
                 <h5 class="card-title mb-0_">Leaderboard</h5>
                 @if ($event)
                     <strong class="card-subtitle mb-0 d-block border-bottom">
-                        {{ $event->name }}
+                        <a class="text-dark" href="{{ route('event.show', ['event' => $event->slug]) }}">
+                            <i class="fas fa-trophy me-1"></i>
+                            {{ $event->name }}
+                        </a>
                     </strong>
                 @endif
             </div>
@@ -41,7 +44,7 @@
                     </div>
 
                 @empty
-                    ...default event not set
+                    ...contestants coming soon
                 @endforelse
 
                 <!-- View more button -->

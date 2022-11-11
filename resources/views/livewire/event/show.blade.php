@@ -41,6 +41,14 @@
         </div>
     </div>
 
+    @isset($event->about)
+        <div class="card card-body">
+            <p>
+                {{ $event->about }}
+            </p>
+        </div>
+    @endisset
+
     <div class="card card-body">
         <div class="row align-items-center">
             <div class="col-lg-6"></div>

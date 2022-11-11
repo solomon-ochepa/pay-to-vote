@@ -65,20 +65,31 @@ class EventController extends Controller
             return redirect()->route('event.index')->with('status', "You can't create Event!");
         }
 
-        $validated = $request->validate([
+        $request->validate([
             'name' => ['required', 'string', 'max:120'],
             'started_at' => ['required', 'date'],
             'ended_at' => ['required', 'date'],
+            'about' => ['required', 'string', 'max:800'],
             'default' => ['nullable', 'string'],
             'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
         ]);
 
+        // Reset Default
+        if ($request['default'] === "on") {
+            $exists = Event::where('default', 1)->first();
+            if ($exists) {
+                $exists->default = 0;
+                $exists->save();
+            }
+        }
+
         $event = Event::firstOrCreate([
-            'name' => $validated['name'],
-            'started_at' => $validated['started_at'],
-            'ended_at' => $validated['ended_at'],
+            'name' => $request['name'],
+            'started_at' => $request['started_at'],
+            'ended_at' => $request['ended_at'],
         ], [
-            'active' => $validated['active'] == 'on' ? 1 : 0,
+            'default' => $request['default'] == 'on' ? 1 : 0,
+            'about' => $request['about'],
         ]);
 
         if (!$event) {
@@ -142,7 +153,13 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $this->middleware(['auth', 'can:event.edit']);
+
+        if (!auth()->user()->is_admin) {
+            return redirect()->route('event.index')->with('status', "You can't create Event!");
+        }
+
+        return view('event.edit', compact('event'));
     }
 
     /**

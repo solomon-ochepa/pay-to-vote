@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="m-0">Create Event</h4>
+        <h4 class="m-0">Edit: <span class="fw-normal">{{ $event->name }}</span></h4>
     </div>
 
     {{-- Preview --}}
@@ -8,8 +8,9 @@
         @if ($image and !empty($image->temporaryUrl()))
             <img src="{{ $image->temporaryUrl() }}" class="rounded mb-2" width="auto"
                 style="max-width: 100%; height: 100%">
-            {{-- @elseif($media)
-            <img src="{{ $media->getUrl() }}" class="rounded mb-2" width="auto" style="max-width: 100%"> --}}
+        @elseif($event->media)
+            <img src="{{ $event->firstMedia(['image', 'profile'])->getUrl() }}" class="rounded mb-2" width="auto"
+                style="max-width: 100%">
         @endif
     </div>
 
@@ -31,26 +32,30 @@
 
                 <div class="col-md-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="" required />
+                    <input type="text" class="form-control" id="name" name="name" placeholder="" required
+                        :value="{{ $event->name }}" wire:model.lazy="event.name" />
                 </div>
 
                 <div class="col-md-12">
                     <label for="about" class="form-label">About</label>
                     <textarea class="form-control" id="about" name="about" placeholder="Write a short description for the event."
-                        required></textarea>
+                        required wire:model.lazy="event.about">{{ $event->about }}</textarea>
                 </div>
 
                 <div class="col-md-6">
                     <label for="started_at" class="form-label">Starting</label>
-                    <input type="datetime-local" class="form-control" id="started_at" name="started_at" required>
+                    <input type="datetime-local" class="form-control" id="started_at" name="started_at" required
+                        :value="{{ $event->started_at }}" wire:model.lazy="event.started_at">
                 </div>
                 <div class="col-md-6">
                     <label for="ended_at" class="form-label">Ending</label>
-                    <input type="datetime-local" class="form-control" id="ended_at" name="ended_at" required>
+                    <input type="datetime-local" class="form-control" id="ended_at" name="ended_at" required
+                        :value="{{ $event->ended_at }}" wire:model.lazy="event.ended_at">
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="default" name="default">
+                        <input class="form-check-input" @if ($event->default) checked @endif type="checkbox"
+                            id="default" name="default">
                         <label class="form-check-label" for="default">
                             Default?
                         </label>
@@ -61,7 +66,7 @@
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button disabled type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </form>
