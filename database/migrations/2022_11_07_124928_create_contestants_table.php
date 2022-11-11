@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('number')->unsigned();
             $table->boolean('active')->default(0);
             $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('note')->nullable();
+            $table->string('about')->nullable();
             //
             $table->uuid('id')->primary();
             $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
