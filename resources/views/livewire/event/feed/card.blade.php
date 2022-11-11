@@ -27,9 +27,9 @@
                 <div class="col-lg-2">
                     <div class="bg-mode text-center rounded overflow-hidden p-1 d-inline-block">
                         <div class="bg-primary p-2 text-white rounded-top small lh-1">
-                            {{ $event->start_at->gt(now()) ? 'Starting' : 'Started' }}
+                            {{ $event->started_at->gt(now()) ? 'Starting' : 'Started' }}
                         </div>
-                        <h5 class="mb-0 py-2 lh-1">{{ $event->start_at->format('M d, Y') }}</h5>
+                        <h5 class="mb-0 py-2 lh-1">{{ $event->started_at->format('M d, Y') }}</h5>
                     </div>
                 </div>
             </div>

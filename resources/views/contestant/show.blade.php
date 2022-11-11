@@ -21,11 +21,11 @@
                         <ul class="list-unstyled mt-3 mb-0">
                             <li class="mb-2">
                                 <i class="bi bi-calendar-date fa-fw pe-1"></i>
-                                Started: <strong>{{ $contestant->event->start_at->format('M d, Y') }}</strong>
+                                Started: <strong>{{ $contestant->event->started_at->format('M d, Y') }}</strong>
                             </li>
                             <li class="mb-2">
                                 <i class="bi bi-calendar-date fa-fw pe-1"></i>
-                                Ending: <strong>{{ $contestant->event->end_at->format('M d, Y') }}</strong>
+                                Ending: <strong>{{ $contestant->event->ended_at->format('M d, Y') }}</strong>
                             </li>
                             <li class="mb-2">
                                 <i class="bi bi-heart fa-fw pe-1"></i>

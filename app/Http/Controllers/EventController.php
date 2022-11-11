@@ -67,16 +67,16 @@ class EventController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:120'],
-            'start_at' => ['required', 'date'],
-            'end_at' => ['required', 'date'],
-            'active' => ['nullable', 'string'],
+            'started_at' => ['required', 'date'],
+            'ended_at' => ['required', 'date'],
+            'default' => ['nullable', 'string'],
             'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
         ]);
 
         $event = Event::firstOrCreate([
             'name' => $validated['name'],
-            'start_at' => $validated['start_at'],
-            'end_at' => $validated['end_at'],
+            'started_at' => $validated['started_at'],
+            'ended_at' => $validated['ended_at'],
         ], [
             'active' => $validated['active'] == 'on' ? 1 : 0,
         ]);

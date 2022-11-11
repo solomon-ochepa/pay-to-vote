@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('slug');
             $table->integer('min_vote');
             $table->decimal('vote_cost');
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
             $table->boolean('active')->default(1);
             $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
             $table->boolean('default')->default(0)->unique();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->timestamps();
 
-            $table->unique(['name', 'start_at', 'end_at'], 'event');
+            $table->unique(['name', 'started_at', 'ended_at'], 'event');
         });
     }
 

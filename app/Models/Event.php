@@ -19,7 +19,7 @@ class Event extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'start_at', 'end_at'
+        'name', 'slug', 'started_at', 'ended_at', 'about', 'default'
     ];
 
     /**
@@ -52,8 +52,8 @@ class Event extends Model
      * @var array
      */
     protected $casts = [
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
+        'started_at' => 'datetime',
+        'ended_at' => 'datetime',
     ];
 
     public function contestants()

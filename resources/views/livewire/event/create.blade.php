@@ -31,22 +31,32 @@
 
                 <div class="col-md-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="" required />
+                </div>
+
+                <div class="col-md-12">
+                    <label for="about" class="form-label">About</label>
+                    <textarea class="form-control" id="about" name="about" placeholder="Write a short description for the event."
+                        required></textarea>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="started_at" class="form-label">Starting</label>
+                    <input type="datetime-local" class="form-control" id="started_at" name="started_at" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="start_at" class="form-label">Starting</label>
-                    <input type="datetime-local" class="form-control" id="start_at" name="start_at">
-                </div>
-                <div class="col-md-6">
-                    <label for="end_at" class="form-label">Ending</label>
-                    <input type="datetime-local" class="form-control" id="end_at" name="end_at">
+                    <label for="ended_at" class="form-label">Ending</label>
+                    <input type="datetime-local" class="form-control" id="ended_at" name="ended_at" required>
                 </div>
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" checked type="checkbox" id="active" name="active">
+                        <input class="form-check-input" type="checkbox" id="active" name="active">
                         <label class="form-check-label" for="active">
-                            Activate?
+                            Default?
                         </label>
+                        <div class="form-text">
+                            Used for Leaderboard and other default actions.
+                        </div>
                     </div>
                 </div>
 

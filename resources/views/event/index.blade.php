@@ -75,7 +75,7 @@
                                         <!-- Date time -->
                                         <p class="mb-0 small">
                                             <i class="bi bi-calendar-check pe-1"></i>
-                                            <small>{{ $event->start_at->format('D, M d, Y - h:i A') }}</small>
+                                            <small>{{ $event->started_at->format('D, M d, Y - h:i A') }}</small>
                                         </p>
                                         <p class="small">
                                             <i class="bi bi-geo-alt pe-1"></i>
