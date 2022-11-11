@@ -15,6 +15,10 @@ class Create extends Component
     public $image;
     public $max = (1024 * 1000); // KB * MB Max
 
+    protected $rules = [
+        "image" => ['required', 'image', "max:5120", "mimes:jpg,jpeg,png,svg,webp"]
+    ];
+
     public function render()
     {
         return view('livewire.contestant.create');
@@ -22,8 +26,6 @@ class Create extends Component
 
     public function updatedImage()
     {
-        $this->validate([
-            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg,webp"],
-        ]);
+        $this->validate();
     }
 }
