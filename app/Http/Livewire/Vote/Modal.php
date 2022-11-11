@@ -56,16 +56,22 @@ class Modal extends Component
         return $this->votes = ((int) $this->amount ?? $this->vote_amount) / $this->vote_amount;
     }
 
-    protected $rules = [
-        'voter.name' => ['required', 'min:3'],
-        'voter.phone' => ['required'],
-        'amount' => ['required', 'integer'],
-        'votes' => ['required', 'integer'],
-    ];
-
     public function save()
     {
-        $this->validate();
+        if (!$this->modal) {
+            session()->flash('status', "Please wait for the page to finish loading before voting.");
+            return back();
+        }
+
+        $min_vote = $this->modal->event->min_vote;
+        $min_amount = $this->modal->event->vote_cost * $min_vote;
+
+        $this->validate([
+            'voter.name' => ['required', 'min:3'],
+            'voter.phone' => ['required'],
+            'amount' => ['required', 'integer', "min:{$min_amount}"],
+            'votes' => ['required', 'integer', "min:{$min_vote}"],
+        ]);
 
         // Save Voter
         $voter = Voter::firstOrCreate([

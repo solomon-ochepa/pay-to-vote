@@ -16,10 +16,14 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->string('name');
             $table->string('slug');
+            $table->integer('min_vote');
+            $table->decimal('vote_cost');
             $table->timestamp('start_at')->nullable();
             $table->timestamp('end_at')->nullable();
             $table->boolean('active')->default(1);
             $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->boolean('default')->default(0)->unique();
+            $table->text('about')->nullable();
             //
             $table->uuid('id')->primary();
             $table->timestamps();

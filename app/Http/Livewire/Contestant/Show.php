@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Event;
+namespace App\Http\Livewire\Contestant;
 
 use App\Models\Contestant;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public $event;
+    public $contestant;
     public $modal_id;
 
     public function modal($id)
@@ -17,6 +17,6 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.event.show');
+        return view('livewire.contestant.show');
     }
 }

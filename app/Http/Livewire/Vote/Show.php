@@ -67,7 +67,7 @@ class Show extends Component
             session()->flash('status', "Vote successful.");
 
             // @todo: refresh the component with ajax instead
-            return redirect(route('vote.show', ['vote' => $this->vote->id]));
+            return redirect(route('event.contestant.show', ['event' => $this->vote->contestant->event->slug, 'contestant' => $this->vote->contestant->slug]));
         }
     }
 }

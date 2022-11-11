@@ -29,19 +29,28 @@
                                 required wire:model.defer="voter.phone">
                         </div>
 
+                        @isset($modal->event)
+                            @php
+                                $vote_cost = (int) $modal->event->vote_cost;
+                                $min_vote = $modal->event->min_vote;
+                                $min_amount = $min_vote * $vote_cost;
+                            @endphp
+                        @endisset
+
                         <!-- Amount -->
                         <div class="col-sm-8">
                             <label class="form-label">Amount</label>
-                            <input type="number" id="amount" step="50" min="50" class="form-control"
-                                placeholder="N" required wire:model="amount" wire:change="amount()">
+                            <input type="number" id="amount" step="{{ $vote_cost ?? 0 }}"
+                                min="{{ $min_amount ?? 0 }}" class="form-control" placeholder="N" required
+                                wire:model="amount" wire:change="amount()">
                         </div>
 
                         <!-- Votes -->
                         <div class="col-sm-4">
                             <label class="form-label">Votes</label>
-                            <input type="number" id="votes" step="1" min="1" class="form-control"
-                                placeholder="0" required wire:model="votes" wire:change="votes()"
-                                wire:keydown="votes()">
+                            <input type="number" id="votes" step="1" min="{{ $min_vote ?? 0 }}"
+                                class="form-control" placeholder="0" required wire:model="votes" wire:change="votes()"
+                                wire:keypress="votes()">
                         </div>
                     </div>
                 </div>

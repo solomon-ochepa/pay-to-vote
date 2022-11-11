@@ -58,7 +58,17 @@ class Event extends Model
 
     public function contestants()
     {
-        return $this->hasMany(Contestant::class);
+        return $this->hasMany(Contestant::class)->with('votes')->orderByDesc(
+            Vote::select('total')
+                ->whereColumn('contestant_id', 'contestants.id')
+                ->orderByDesc('total')
+                ->limit(1)
+        ); //->withPivot('event_id');
+    }
+
+    public function leaderboard()
+    {
+        return $this->hasMany(Contestant::class)->latest();
     }
 
     public function votes()
