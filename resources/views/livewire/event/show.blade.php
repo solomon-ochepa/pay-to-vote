@@ -101,7 +101,8 @@
                             $image = $contestant->media->first() ? $contestant->media->first()->getUrl() : asset('user.svg');
                         @endphp
                         {{-- <a href="{{ route('event.show', ['event' => $event->slug]) }}"> --}}
-                        <img class="img-fluid rounded-top" src="{{ $image }}" alt="">
+                        <img class="img-fluid rounded-top" src="{{ $image }}" alt=""
+                            style="max-height: 250px;">
                         {{-- </a> --}}
 
                         <button type="button" data-bs-toggle="modal" data-bs-target="#vote-modal"

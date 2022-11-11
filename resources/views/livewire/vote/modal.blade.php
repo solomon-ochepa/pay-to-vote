@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     @if ($modal->id)
                         <h5 class="modal-title" id="modalLabelCreateAlbum">
-                            Vote: {{ $modal->user->first_name }} {{ $modal->user->last_name }}
+                            Vote: {{ $modal->first_name }} {{ $modal->last_name }}
                             (#{{ $modal->number }})
                         </h5>
                     @endif

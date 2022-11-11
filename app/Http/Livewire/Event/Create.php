@@ -23,7 +23,7 @@ class Create extends Component
     public function updatedImage()
     {
         $this->validate([
-            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
+            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg,webp"],
         ]);
     }
 }

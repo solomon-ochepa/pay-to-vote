@@ -40,7 +40,7 @@ class ContestantController extends Controller
     public function store(Event $event, Request $request)
     {
         $request->validate([
-            'image' => ['bail', 'required', 'image', "max:1024", "mimes:jpg,jpeg,png,svg"],
+            'image' => ['bail', 'required', 'image', "max:1024", "mimes:jpg,jpeg,png,svg,webp"],
         ]);
 
         $request->validate([

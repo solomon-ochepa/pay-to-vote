@@ -1,7 +1,7 @@
 <div class="col-md-8 col-lg-9 vstack gap-4">
     <div class="card">
         <div class="card-header">
-            <h4>Voting: {{ $vote->contestant->user->first_name }} {{ $vote->contestant->user->last_name }}</h4>
+            <h4>Voting: {{ $vote->contestant->first_name }} {{ $vote->contestant->last_name }}</h4>
         </div>
 
         <div class="card-body">
