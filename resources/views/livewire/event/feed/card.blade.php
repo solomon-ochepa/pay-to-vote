@@ -37,10 +37,12 @@
             {{-- Name --}}
             <div class="row g-3 justify-content-between align-items-center mt-5 pt-5 position-relative z-index-9">
                 <div class="col-lg-9">
-                    <h1 class="h3 mb-1 text-white">{{ Str::limit($event->name, 32) }}</h1>
-                    <a class="text-white" href="#" target="_blank">
-                        #{{ $event->slug }}
-                    </a>
+                    <h1 class="h3 mb-1 text-white">
+                        <a class="text-white" href="{{ route('event.show', ['event' => $event->slug]) }}">
+                            {{ Str::limit($event->name, 32) }}
+                        </a>
+                    </h1>
+                    #{{ $event->slug }}
                 </div>
 
                 {{-- Action button --}}
@@ -61,7 +63,8 @@
                             <div class="card shadow-none text-center">
                                 <div class="card-body p-2 pb-0">
                                     <div class="avatar avatar-xl">
-                                        <a href="#!">
+                                        <a
+                                            href="{{ route('event.contestant.show', ['event' => $contestant->event->slug, 'contestant' => $contestant->slug]) }}">
                                             @if ($contestant->media->first())
                                                 <img class="avatar-img rounded-circle"
                                                     src="{{ $contestant->media->first()->getUrl() }}" alt="">
@@ -74,7 +77,8 @@
                                     <h6 class="card-title mb-1 mt-3">
                                         <div># {{ $contestant->number }}</div>
                                         <hr class="my-1" />
-                                        <a href="#!">
+                                        <a
+                                            href="{{ route('event.contestant.show', ['event' => $contestant->event->slug, 'contestant' => $contestant->slug]) }}">
                                             {{ Str::limit($contestant->first_name . ' ' . $contestant->last_name, 14) }}
                                         </a>
                                     </h6>
