@@ -1,8 +1,4 @@
 <div class="card">
-    <div class="card-header">
-        <h4 class="m-0">Edit: <span class="fw-normal">{{ $event->name }}</span></h4>
-    </div>
-
     {{-- Preview --}}
     <div class="card-img">
         @if ($image and !empty($image->temporaryUrl()))
@@ -12,6 +8,10 @@
             <img src="{{ $event->firstMedia(['image', 'profile'])->getUrl() }}" class="rounded mb-2" width="auto"
                 style="max-width: 100%">
         @endif
+    </div>
+
+    <div class="card-header">
+        <h4 class="m-0">Edit: <span class="fw-normal">{{ $event->name }}</span></h4>
     </div>
 
     <div class="card-body">
@@ -34,6 +34,9 @@
                     <label for="name" class="form-label">Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="" required
                         :value="{{ $event->name }}" wire:model.lazy="event.name" />
+                    @error('event.name')
+                        <span class="form-text">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="col-md-12">
@@ -45,7 +48,7 @@
                 <div class="col-md-6">
                     <label for="started_at" class="form-label">Starting</label>
                     <input type="datetime-local" class="form-control" id="started_at" name="started_at" required
-                        :value="{{ $event->started_at }}" wire:model.lazy="event.started_at">
+                        :value="{{ $event->started_at->format('m/d/Y h:i A') }}" wire:model="event.started_at">
                 </div>
                 <div class="col-md-6">
                     <label for="ended_at" class="form-label">Ending</label>
