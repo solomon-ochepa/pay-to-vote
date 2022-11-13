@@ -23,8 +23,17 @@ class Edit extends Component
     }
 
     protected $rules = [
-        'event.name' => ['required']
+        'event.name'          => ['bail', 'required', 'string', 'max:120'],
+        'event.started_at'    => ['bail', 'required', 'date'],
+        'event.ended_at'      => ['bail', 'required', 'date'],
+        'event.about'         => ['bail', 'required', 'string', 'max:800'],
+        'event.default'       => ['bail', 'nullable', 'string'],
     ];
+
+    public function updated()
+    {
+        $this->validate();
+    }
 
     public function updatedImage()
     {
