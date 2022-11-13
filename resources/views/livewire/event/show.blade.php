@@ -42,10 +42,8 @@
     </div>
 
     @isset($event->about)
-        <div class="card card-body">
-            <p>
-                {{ $event->about }}
-            </p>
+        <div class="card card-body my-n4 mx-1">
+            {{ $event->about }}
         </div>
     @endisset
 
