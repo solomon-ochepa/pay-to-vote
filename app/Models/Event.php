@@ -19,7 +19,7 @@ class Event extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name', 'slug', 'started_at', 'ended_at', 'about', 'default'
+        'name', 'slug', 'min_vote', 'vote_cost', 'started_at', 'ended_at', 'about', 'default'
     ];
 
     /**
