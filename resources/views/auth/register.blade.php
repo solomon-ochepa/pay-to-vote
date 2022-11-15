@@ -36,7 +36,7 @@
         <!-- Email -->
         <div class="mb-3 input-group-lg">
             <input type="email" id="email" name="email" class="form-control"
-                placeholder="Email address (optional)" :value="old('email')" required>
+                placeholder="Email address (optional)" :value="old('email')">
             <small class="form-text text-start d-block">We'll never share your details with anyone else.</small>
         </div>
 
