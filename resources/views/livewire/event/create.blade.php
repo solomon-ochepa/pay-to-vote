@@ -41,13 +41,27 @@
                 </div>
 
                 <div class="col-md-6">
+                    <label for="min-vote" class="form-label">Min Vote</label>
+                    <input type="number" class="form-control" id="min-vote" placeholder="1" step="1"
+                        min="1" name="min_vote" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="vote-cost" class="form-label">Cost per Vote</label>
+                    <input type="number" class="form-control" id="vote-cost" placeholder="1.00" step="0.01"
+                        min="1.00" name="vote_cost" required>
+                </div>
+
+                <div class="col-md-6">
                     <label for="started_at" class="form-label">Starting</label>
                     <input type="datetime-local" class="form-control" id="started_at" name="started_at" required>
                 </div>
+
                 <div class="col-md-6">
                     <label for="ended_at" class="form-label">Ending</label>
                     <input type="datetime-local" class="form-control" id="ended_at" name="ended_at" required>
                 </div>
+
                 <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="default" name="default">
