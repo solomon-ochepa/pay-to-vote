@@ -16,46 +16,45 @@
             </div>
 
             <div class="card-body">
-                <!-- Contestants item -->
-                @forelse ($event->contestants->take(20) ?? [] as $contestant)
-                    <div class="hstack gap-2 mb-3">
-                        <!-- Avatar -->
-                        <div class="avatar">
-                            <a href="#!">
-                                <img class="avatar-img rounded-circle"
-                                    src="{{ $contestant->firstMedia(['image', 'profile'])->getUrl() }}" alt="">
+                @isset($event->contestants)
+                    <!-- Contestants item -->
+                    @forelse ($event->contestants->take(20) ?? [] as $contestant)
+                        <div class="hstack gap-2 mb-3">
+                            <!-- Avatar -->
+                            <div class="avatar">
+                                <a href="#!">
+                                    <img class="avatar-img rounded-circle"
+                                        src="{{ $contestant->firstMedia(['image', 'profile'])->getUrl() }}" alt="">
+                                </a>
+                            </div>
+
+                            <!-- Name -->
+                            <div class="overflow-hidden">
+                                <a class="h6 mb-0" href="#!">
+                                    {{ $contestant->first_name }} {{ $contestant->last_name }}
+                                </a>
+                                <p class="mb-0 small text-truncate">
+                                    <strong>ID:</strong> {{ $contestant->number }}
+                                </p>
+                            </div>
+
+                            <!-- Button -->
+                            <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#">
+                                {{ $contestant->votes->where('active', 1)->sum('total') }}
                             </a>
                         </div>
 
-                        <!-- Name -->
-                        <div class="overflow-hidden">
-                            <a class="h6 mb-0" href="#!">
-                                {{ $contestant->first_name }} {{ $contestant->last_name }}
-                            </a>
-                            <p class="mb-0 small text-truncate">
-                                <strong>ID:</strong> {{ $contestant->number }}
-                            </p>
-                        </div>
+                    @empty
+                        ...contestants coming soon
+                    @endforelse
 
-                        <!-- Button -->
-                        <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#">
-                            {{ $contestant->votes->where('active', 1)->sum('total') }}
-                        </a>
+                    <div class="d-grid mt-3">
+                        <a class="btn btn-sm btn-primary-soft" href="#!">View more</a>
                     </div>
-
-                @empty
-                    ...contestants coming soon
-                @endforelse
-
-                <!-- View more button -->
-                <div class="d-grid mt-3">
-                    <a class="btn btn-sm btn-primary-soft" href="#!">View more</a>
-                </div>
+                @endisset
             </div>
-            <!-- Card body END -->
         </div>
     </div>
-    <!-- Card follow START -->
 
     <!-- Card News START -->
     {{-- <div class="col-sm-6 col-lg-12">
