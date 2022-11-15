@@ -33,7 +33,7 @@ class CreateNewUser implements CreatesNewUsers
 
         $user = User::firstOrCreate([
             'phone'         => $input['phone'],
-            'email'         => $input['email'] ?? '',
+            'email'         => $input['email'] ?? null,
         ], [
             'first_name'    => $input['first_name'],
             'last_name'     => $input['last_name'],
