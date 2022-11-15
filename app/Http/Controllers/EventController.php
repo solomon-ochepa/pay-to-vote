@@ -66,12 +66,14 @@ class EventController extends Controller
         }
 
         $request->validate([
-            'name' => ['required', 'string', 'max:120'],
-            'started_at' => ['required', 'date'],
-            'ended_at' => ['required', 'date'],
-            'about' => ['required', 'string', 'max:800'],
-            'default' => ['nullable', 'string'],
-            'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
+            'name'          => ['required', 'string', 'max:120'],
+            'min_vote'      => ['required', 'integer', 'min:1'],
+            'vote_cost'     => ['required', 'integer', 'min:1'],
+            'started_at'    => ['required', 'date'],
+            'ended_at'      => ['required', 'date'],
+            'about'         => ['required', 'string', 'max:800'],
+            'default'       => ['nullable', 'string'],
+            'image'         => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
         ]);
 
         // Reset Default
@@ -84,12 +86,14 @@ class EventController extends Controller
         }
 
         $event = Event::firstOrCreate([
-            'name' => $request['name'],
-            'started_at' => $request['started_at'],
-            'ended_at' => $request['ended_at'],
+            'name'          => $request['name'],
+            'started_at'    => $request['started_at'],
+            'ended_at'      => $request['ended_at'],
         ], [
-            'default' => $request['default'] == 'on' ? 1 : 0,
-            'about' => $request['about'],
+            'default'       => $request['default'] == 'on' ? 1 : 0,
+            'about'         => $request['about'],
+            'min_vote'      => $request['min_vote'],
+            'vote_cost'     => $request['vote_cost'],
         ]);
 
         if (!$event) {
