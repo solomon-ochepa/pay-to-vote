@@ -24,6 +24,8 @@ class Create extends Component
     {
         $this->validate([
             'image' => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg,webp"],
+            'min_vote' => ['required', 'integer', 'min:1'],
+            'vote_cost' => ['required', 'decimal', 'min:1'],
         ]);
     }
 }
