@@ -135,7 +135,7 @@
                             <a
                                 href="{{ route('event.contestant.show', ['event' => $event->slug, 'contestant' => $contestant->slug]) }}">
                                 <i class="fas fa-user-tie me-1"></i>
-                                {{ Str::limit($contestant->first_name . ' ' . $contestant->last_name, 16) }}
+                                {{ $contestant->first_name . ' ' . $contestant->last_name }}
                             </a>
                         </h6>
 
