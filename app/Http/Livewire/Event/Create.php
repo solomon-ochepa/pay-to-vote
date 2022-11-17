@@ -11,8 +11,12 @@ class Create extends Component
     use WithFileUploads;
     use HandlesMediaUploadExceptions;
 
+    public $event;
+
     public $image;
     public $media;
+    public $min_vote;
+    public $vote_cost;
     public $max = (1024 * 1000); // KB * MB Max
 
     public function render()
