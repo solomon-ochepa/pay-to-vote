@@ -57,12 +57,7 @@ class Contestant extends Model
 
     public function votes()
     {
-        return $this->hasMany(Vote::class);
-    }
-
-    public function active_votes()
-    {
-        return $this->votes->active();
+        return $this->hasMany(Vote::class)->active();
     }
 
     public function event()
