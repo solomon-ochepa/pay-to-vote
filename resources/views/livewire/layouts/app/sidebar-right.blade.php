@@ -1,59 +1,6 @@
-<div class="row g-4" wire:pull.10s>
-    <!-- Card follow START -->
+<div class="row g-4" wire:pull.15s>
     <div class="col-sm-6 col-lg-12">
-        <div class="card">
-            <!-- Card header START -->
-            <div class="card-header pb-0 border-0">
-                <h5 class="card-title mb-0_">Leaderboard</h5>
-                @if ($event)
-                    <strong class="card-subtitle mb-0 d-block border-bottom">
-                        <a class="text-dark" href="{{ route('event.show', ['event' => $event->slug]) }}">
-                            <i class="fas fa-trophy me-1"></i>
-                            {{ $event->name }}
-                        </a>
-                    </strong>
-                @endif
-            </div>
-
-            <div class="card-body">
-                @isset($event->contestants)
-                    <!-- Contestants item -->
-                    @forelse ($event->contestants->take(20) ?? [] as $contestant)
-                        <div class="hstack gap-2 mb-3">
-                            <!-- Avatar -->
-                            <div class="avatar">
-                                <a href="#!">
-                                    <img class="avatar-img rounded-circle"
-                                        src="{{ $contestant->firstMedia(['image', 'profile'])->getUrl() }}" alt="">
-                                </a>
-                            </div>
-
-                            <!-- Name -->
-                            <div class="overflow-hidden">
-                                <a class="h6 mb-0" href="#!">
-                                    {{ $contestant->first_name }} {{ $contestant->last_name }}
-                                </a>
-                                <p class="mb-0 small text-truncate">
-                                    <strong>ID:</strong> {{ $contestant->number }}
-                                </p>
-                            </div>
-
-                            <!-- Button -->
-                            <a class="btn btn-primary-soft rounded-circle icon-md ms-auto" href="#">
-                                {{ $contestant->votes->where('active', 1)->sum('total') }}
-                            </a>
-                        </div>
-
-                    @empty
-                        ...contestants coming soon
-                    @endforelse
-
-                    <div class="d-grid mt-3">
-                        <a class="btn btn-sm btn-primary-soft" href="#!">View more</a>
-                    </div>
-                @endisset
-            </div>
-        </div>
+        <livewire:leaderboard />
     </div>
 
     <!-- Card News START -->
