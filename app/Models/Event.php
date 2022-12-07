@@ -13,6 +13,8 @@ class Event extends Model
     use HasFactory, HasUuids, Sluggable;
     use Mediable;
 
+    public $limit = 30;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -67,12 +69,19 @@ class Event extends Model
 
     public function contestants()
     {
-        return $this->hasMany(Contestant::class)->active()->limit(30);
+        $contestants = $this->hasMany(Contestant::class)->active()->limit($this->limit);
+        // $contestants->each(function ($contestant) {
+        //     $contestant->active     = 1;
+        //     $contestant->voted      = $contestant->votes->sum('total');
+        //     $contestant->save();
+        // });
+
+        return $contestants;
     }
 
     public function leaderboard()
     {
-        return $this->hasMany(Contestant::class)->active()->orderBy('voted', 'desc')->limit(30);
+        return $this->hasMany(Contestant::class)->active()->orderBy('voted', 'desc')->limit($this->limit);
     }
 
     public function votes()
@@ -82,7 +91,7 @@ class Event extends Model
 
     public function voters()
     {
-        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->distinct()->limit(30);
+        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->distinct()->limit($this->limit);
     }
 
     public function voted()
