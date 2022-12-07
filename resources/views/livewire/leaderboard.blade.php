@@ -3,7 +3,7 @@
         <h5 class="card-title mb-0_ fw-bolder">Leaderboard</h5>
         @isset($event)
             <strong class="card-subtitle mb-0 d-block border-bottom">
-                <a class="text-dark" href="{{ route('event.show', ['event' => $event->slug]) }}">
+                <a class="text-secondary" href="{{ route('event.show', ['event' => $event->slug]) }}">
                     <i class="fas fa-trophy me-1"></i>
                     {{ $event->name }}
                 </a>
@@ -35,7 +35,11 @@
                             {{ $contestant->first_name }} {{ $contestant->last_name }}
                         </a>
                         <p class="mb-0 small text-truncate">
-                            <strong>ID:</strong> {{ $contestant->number }}
+                            <a href="javascript://" class="text-secondary ms-auto" type="button" data-bs-toggle="modal"
+                                data-bs-target="#vote-modal" wire:click="modal('{{ $contestant->id }}')">
+                                <strong>#</strong>
+                                {{ $contestant->number }}
+                            </a>
                         </p>
                     </div>
 
