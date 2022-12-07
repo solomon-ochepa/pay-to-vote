@@ -49,7 +49,7 @@ class ContestantController extends Controller
             'about'         => ['nullable', 'string', 'max:800']
         ]);
 
-        // Update User
+        // Get user
         $user = auth()->user();
 
         // Contestant Number
@@ -61,12 +61,13 @@ class ContestantController extends Controller
 
         // Create Contestant
         $contestant = Contestant::firstOrCreate([
-            'user_id' => $user->id,
-            'event_id' => $event->id,
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
+            'user_id'       => $user->id,
+            'event_id'      => $event->id,
+            'first_name'    => $request['first_name'],
+            'last_name'     => $request['last_name'],
         ], [
-            'number' => $number,
+            'number'    => $number,
+            'active'    => 1,
         ]);
 
         // Check for existing image
@@ -84,7 +85,7 @@ class ContestantController extends Controller
             ->makePublic()
             ->upload();
 
-        // Media table entry
+        // Store Media in Database table
         if ($upload) {
             if ($this->media) {
                 // Replace existing media
@@ -102,7 +103,7 @@ class ContestantController extends Controller
             return back()->withInput();
         }
 
-        session()->flash('status', "Contestant ID: <strong>{$contestant->number}</strong> <br/ >Note: Please share this ID with your family, friends and well wishers to vote for you!");
+        session()->flash('status', "Contestant ID: <strong>{$contestant->number}</strong> <br/ >Note: Please share your ID and link with family, friends and well wishers to vote for you!");
 
         return redirect()->route('event.show', ['event' => $event->slug]);
     }
