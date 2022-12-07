@@ -19,6 +19,11 @@ class Vote extends Model
         'event_id', 'contestant_id', 'voter_id', 'total', 'amount'
     ];
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
     public function voter()
     {
         return $this->belongsTo(Voter::class);
