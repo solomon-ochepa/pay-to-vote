@@ -69,12 +69,12 @@ class Event extends Model
 
     public function contestants()
     {
-        $contestants = $this->hasMany(Contestant::class)->active()->limit($this->limit);
-        // $contestants->each(function ($contestant) {
-        //     $contestant->active     = 1;
-        //     $contestant->voted      = $contestant->votes->sum('total');
-        //     $contestant->save();
-        // });
+        $contestants = $this->hasMany(Contestant::class)->active()->latest('updated_at')->limit($this->limit);
+        $contestants->each(function ($contestant) {
+            // $contestant->active     = 1;
+            $contestant->voted      = $contestant->votes->sum('total');
+            $contestant->save();
+        });
 
         return $contestants;
     }
