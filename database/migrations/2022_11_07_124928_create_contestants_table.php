@@ -14,17 +14,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contestants', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('slug')->unique();
             $table->bigInteger('number')->unsigned();
+            $table->bigInteger('voted')->default(0);
             $table->boolean('active')->default(0);
+            $table->foreignUuid('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('status_code')->default(1)->constrained('statuses', 'code')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('about')->nullable();
-            //
-            $table->uuid('id')->primary();
-            $table->foreignUuid('event_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignUuid('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
 
             $table->unique(['number', 'event_id', 'user_id'], 'contestant');
