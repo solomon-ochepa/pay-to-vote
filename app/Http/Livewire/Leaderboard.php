@@ -12,13 +12,14 @@ class Leaderboard extends Component
     public function render()
     {
         $this->event = Event::where('default', 1)->first();
-        // $this->event->contestants->each(function ($contestant) {
-        //     // $contestant->active = 1;
-        //     // $contestant->save();
-        // });
 
         return view('livewire.leaderboard', [
             'event' => $this->event
         ]);
+    }
+
+    public function modal($id)
+    {
+        return $this->emit('modal_id', $id);
     }
 }
