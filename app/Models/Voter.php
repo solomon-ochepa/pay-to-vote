@@ -18,4 +18,9 @@ class Voter extends Model
     protected $fillable = [
         'name', 'phone', 'status_code'
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
 }
