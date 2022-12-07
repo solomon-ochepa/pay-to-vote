@@ -56,19 +56,23 @@ class Event extends Model
         'ended_at' => 'datetime',
     ];
 
+    protected $with = [
+        'contestants'
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
     public function contestants()
     {
-        return $this->hasMany(Contestant::class)->with('votes')->orderByDesc(
-            Vote::select('total')
-                ->whereColumn('contestant_id', 'contestants.id')
-                ->orderByDesc('total')
-                ->limit(1)
-        ); //->withPivot('event_id');
+        return $this->hasMany(Contestant::class)->active()->limit(30);
     }
 
     public function leaderboard()
     {
-        return $this->hasMany(Contestant::class)->latest();
+        return $this->hasMany(Contestant::class)->active()->orderBy('voted', 'desc')->limit(30);
     }
 
     public function votes()
@@ -78,7 +82,7 @@ class Event extends Model
 
     public function voters()
     {
-        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->distinct();
+        return $this->hasManyThrough(Voter::class, Vote::class, 'event_id', 'id', 'id', 'voter_id')->distinct()->limit(30);
     }
 
     public function voted()
