@@ -35,8 +35,9 @@
                             {{ $contestant->first_name }} {{ $contestant->last_name }}
                         </a>
                         <p class="mb-0 small text-truncate">
-                            <a href="javascript://" class="text-secondary ms-auto" type="button" data-bs-toggle="modal"
-                                data-bs-target="#vote-modal" wire:click="modal('{{ $contestant->id }}')">
+                            <a href="javascript://vote-now" class="text-secondary ms-auto" type="button"
+                                data-bs-toggle="modal" data-bs-target="#vote-modal"
+                                wire:click="modal('{{ $contestant->id }}')">
                                 <strong>#</strong>
                                 {{ $contestant->number }}
                             </a>
