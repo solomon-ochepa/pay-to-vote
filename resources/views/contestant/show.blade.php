@@ -4,11 +4,12 @@
     <div class="col-lg-4">
         <div class="row g-4">
             <!-- About -->
-            <div class="col-sm-6 col-lg-12">
+            <div class="_col-sm-6 col-lg-12">
                 <div class="card">
                     <div class="card-header border-0 pb-0">
                         <h5 class="card-title">About</h5>
                     </div>
+
                     <div class="card-body position-relative pt-0">
                         <strong class="card-subtitle d-block border-bottom">
                             <i class="fas fa-trophy me-1"></i>
@@ -28,7 +29,7 @@
                                 Ending: <strong>{{ $contestant->event->ended_at->format('M d, Y') }}</strong>
                             </li>
                             <li class="mb-2">
-                                <i class="bi bi-heart fa-fw pe-1"></i>
+                                <i class="bi bi-people fa-fw pe-1"></i>
                                 Contestants:
                                 <strong>{{ $contestant->event->contestants->count() }}</strong>
                             </li>
@@ -37,15 +38,37 @@
                                 Votes:
                                 <strong>{{ $contestant->event->votes->where('active', 1)->sum('total') }}</strong>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <i class="bi bi-envelope fa-fw pe-1"></i>
                                 Share: <strong>webestica@gmail.com </strong>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- Card END -->
+
+            <!-- Photo -->
+            <div class="_col-sm-6 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-sm-flex justify-content-between border-0">
+                        <h5 class="card-title">Photo</h5>
+                        <a class="btn btn-primary-soft btn-sm"
+                            href="{{ route('event.show', ['event' => $contestant->event->slug]) }}"> See all photo</a>
+                    </div>
+
+                    <div class="card-body position-relative pt-0">
+                        <div class="row g-2">
+                            <div class="col-12">
+                                <a href="{{ $contestant->media->first()->getUrl() }}" data-gallery="image-popup"
+                                    data-glightbox="">
+                                    <img class="rounded img-fluid" src="{{ $contestant->media->first()->getUrl() }}"
+                                        alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Card START -->
             <div class="col-sm-6 col-lg-12 d-none">
@@ -310,5 +333,4 @@
             <!-- Card END -->
         </div>
     </div>
-    <!-- Right sidebar END -->
 </x-app-layout>
