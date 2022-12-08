@@ -1,7 +1,7 @@
 <div class="col-md-8 col-lg-9 vstack gap-4">
     <div class="card">
         <div class="card-header">
-            <h4>Voting: {{ $vote->contestant->first_name }} {{ $vote->contestant->last_name }}</h4>
+            <h4>Voting: {{ $vote->contestant->name }}</h4>
         </div>
 
         <div class="card-body">
@@ -31,19 +31,27 @@
             ref: @js($vote->id),
             amount: (@js($vote->amount) * 100),
             email: @js($vote->voter->phone) + "@" + @js(Str::contains(env('APP_DOMAIN'), '.test') ? 'okitechnologies.com' : env('APP_DOMAIN')),
-            label: "Vote #" + @js($vote->contestant->number),
+            label: "Vote: #" + @js($vote->contestant->number),
             phone: @js($vote->voter->phone),
             metadata: {
                 invoiceid: @js($vote->id),
                 customername: @js($vote->voter->name),
                 custom_fields: [{
-                    display_name: "Votes",
-                    variable_name: "votes",
-                    value: @js($vote->total)
-                }, {
                     display_name: "Event",
                     variable_name: "event_name",
                     value: @js($vote->contestant->event->name),
+                }, {
+                    display_name: "Contestant",
+                    variable_name: "contestant_name",
+                    value: @js($vote->contestant->name),
+                }, {
+                    display_name: "Voter",
+                    variable_name: "voter",
+                    value: @js($vote->voter->name)
+                }, {
+                    display_name: "Votes",
+                    variable_name: "votes",
+                    value: @js($vote->total)
                 }]
             },
 
