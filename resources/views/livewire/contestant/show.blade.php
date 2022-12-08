@@ -25,6 +25,13 @@
 
                 <!-- Button -->
                 <div class="d-flex mt-3 justify-content-center ms-sm-auto">
+                    @php
+                        $title = Str::upper($contestant->event->name);
+                        $link = route('event.contestant.show', ['event' => $contestant->event->slug, 'contestant' => $contestant->slug]);
+                        $text = "*{$title}*\n\nPlease vote *{$contestant->first_name} {$contestant->last_name}* for the *{$title}* event.\nI'm counting on YOU!\n\nContestant ID: {$contestant->number}\nVote Now: {$link}\n\nBest wishes *{$contestant->user->first_name} {$contestant->user->last_name}*.";
+                        $url = 'https://wa.me/?text=' . urlencode($text);
+                    @endphp
+
                     <!-- Vote -->
                     <button class="btn btn-success-soft me-2" type="button" data-bs-toggle="modal"
                         data-bs-target="#vote-modal" wire:click="modal('{{ $contestant->id }}')">
@@ -32,12 +39,10 @@
                         Vote Now
                     </button>
 
-                    @can('contestant.edit')
-                        <!-- Edit -->
-                        <button class="btn btn-danger-soft me-2" type="button"> <i class="bi bi-pencil-fill pe-1"></i>
-                            Edit profile
-                        </button>
-                    @endcan
+                    <a class="btn btn-success-soft me-2" href="{{ $url }}" target="__blank">
+                        <i class="bi bi-whatsapp fa-fw"></i>
+                        {{-- <i class="fab fa-whatsapp pe-1"></i> --}}
+                    </a>
 
                     <!-- Actions -->
                     <div class="dropdown">
@@ -48,19 +53,20 @@
                         </button>
                         <!-- Card share action dropdown menu -->
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
-                            <!-- Share -->
-                            <li>
-                                @php
-                                    $title = Str::upper($contestant->event->name);
-                                    $link = route('event.contestant.show', ['event' => $contestant->event->slug, 'contestant' => $contestant->slug]);
-                                    $text = "*{$title}*\n\nPlease vote *{$contestant->first_name} {$contestant->last_name}* for the *{$title}* event.\nI'm counting on YOU!\n\nContestant ID: {$contestant->number}\nVote Now: {$link}\n\nBest wishes *{$contestant->user->first_name} {$contestant->user->last_name}*.";
-                                    $url = 'https://wa.me/?text=' . urlencode($text);
-                                @endphp
-                                <a class="dropdown-item" href="{{ $url }}" target="__blank">
-                                    <i class="bi bi-whatsapp fa-fw pe-1"></i>
-                                    WhatsApp
-                                </a>
-                            </li>
+                            @can('contestant.edit')
+                                <!-- Edit -->
+                                <li>
+                                    <a class="dropdown-item"
+                                        href="{{ route('event.contestant.edit', [
+                                            'event' => $contestant->event->slug,
+                                            'contestant' => $contestant->slug,
+                                        ]) }}">
+                                        <i class="bi bi-pencil-fill pe-1"></i>
+                                        Edit
+                                    </a>
+                                </li>
+                            @endcan
+
                             {{-- <li>
                                     <a class="dropdown-item" href="#"> <i class="bi bi-lock fa-fw pe-2"></i>Lock
                                         profile</a>
