@@ -6,15 +6,20 @@
             <!-- About -->
             <div class="_col-sm-6 col-lg-12">
                 <div class="card">
-                    <div class="card-header border-0 pb-0">
-                        <h5 class="card-title">About</h5>
+                    <div class="card-header _border-0 pb-0">
+                        <h5 class="_card-title">
+                            <a class="text-secondary"
+                                href="{{ route('event.show', ['event' => $contestant->event->slug]) }}">
+                                <i class="fas fa-trophy me-1"></i>
+                                {{ $contestant->event->name }}
+                            </a>
+                        </h5>
                     </div>
 
                     <div class="card-body position-relative pt-0">
-                        <strong class="card-subtitle d-block border-bottom">
-                            <i class="fas fa-trophy me-1"></i>
-                            {{ $contestant->event->name }}
-                        </strong>
+                        {{-- <strong class="card-subtitle d-block border-bottom">
+
+                        </strong> --}}
                         <!-- More Details -->
                         <p>{{ $contestant->event->about ?? '... more details coming soon!' }}</p>
 
