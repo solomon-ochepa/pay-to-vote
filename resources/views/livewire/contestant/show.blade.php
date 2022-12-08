@@ -116,7 +116,7 @@
 
         <div class="card-body">
             <div class="timeline">
-                @forelse ($contestant->votes ?? [] as $vote)
+                @forelse ($contestant->votes->sortbyDesc('created_at') ?? [] as $vote)
                     <!-- Timeline item -->
                     <div class="timeline-item align-items-center">
                         <!-- Timeline icon -->
