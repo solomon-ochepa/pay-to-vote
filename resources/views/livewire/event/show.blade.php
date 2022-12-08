@@ -9,9 +9,9 @@
             <div class="col-lg-2">
                 <div class="bg-mode text-center rounded overflow-hidden p-1 d-inline-block">
                     <div class="bg-primary p-2 text-white rounded-top small lh-1">
-                        {{ $event->started_at->gt(now()) ? 'Starting' : 'Started' }}
+                        {{ $event->ended_at->gt(now()) ? 'Ending' : 'Ended' }}
                     </div>
-                    <h5 class="mb-0 py-2 lh-1">{{ $event->started_at->format('M d, Y') }}</h5>
+                    <h5 class="mb-0 py-2 lh-1">{{ $event->ended_at->format('M d, Y') }}</h5>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
 
     {{-- List --}}
     <div class="row g-4">
-        @forelse ($event->contestants as $contestant)
+        @forelse ($event->contestants->sortbyDesc('voted') as $contestant)
             <div class="col-sm-6 col-xl-4">
                 <div class="card h-100">
                     <div class="position-relative">
