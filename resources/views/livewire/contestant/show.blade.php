@@ -44,34 +44,35 @@
                         {{-- <i class="fab fa-whatsapp pe-1"></i> --}}
                     </a>
 
-                    <!-- Actions -->
-                    <div class="dropdown">
-                        <!-- Card share action menu -->
-                        <button class="icon-md btn btn-light" type="button" id="profileAction2"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-three-dots"></i>
-                        </button>
-                        <!-- Card share action dropdown menu -->
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
-                            @can('contestant.edit')
-                                <!-- Edit -->
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="{{ route('event.contestant.edit', [
-                                            'event' => $contestant->event->slug,
-                                            'contestant' => $contestant->slug,
-                                        ]) }}">
-                                        <i class="bi bi-pencil-fill pe-1"></i>
-                                        Edit
-                                    </a>
-                                </li>
-                            @endcan
+                    @can('contestant.edit')
+                        <!-- Actions -->
+                        <div class="dropdown">
+                            <!-- Card share action menu -->
+                            <button class="icon-md btn btn-light" type="button" id="profileAction2"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <!-- Card share action dropdown menu -->
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
+                                @can('contestant.edit')
+                                    <!-- Edit -->
+                                    <li>
+                                        <a class="dropdown-item"
+                                            href="{{ route('event.contestant.edit', [
+                                                'event' => $contestant->event->slug,
+                                                'contestant' => $contestant->slug,
+                                            ]) }}">
+                                            <i class="bi bi-pencil-fill pe-1"></i>
+                                            Edit
+                                        </a>
+                                    </li>
+                                @endcan
 
-                            {{-- <li>
+                                {{-- <li>
                                     <a class="dropdown-item" href="#"> <i class="bi bi-lock fa-fw pe-2"></i>Lock
                                         profile</a>
                                 </li> --}}
-                            {{-- <li>
+                                {{-- <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
@@ -80,8 +81,9 @@
                                         settings
                                     </a>
                                 </li> --}}
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    @endcan
                 </div>
             </div>
 
