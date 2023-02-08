@@ -99,18 +99,9 @@ class EventController extends Controller
         ]);
 
         if (!$event) {
-            session()->flash('status', 'Connot create Event');
+            session()->flash('status', 'Cannot create Event');
             return back()->withInput();
         }
-
-        // Upload file
-        $upload = MediaUploader::fromSource($request->file('image'))
-            ->toDisk('public')
-            ->toDirectory('pictures/events/')
-            ->onDuplicateUpdate()
-            ->useHashForFilename()
-            ->makePublic()
-            ->upload();
 
         // Check for existing image
         if ($event->media and $event->media->first())
@@ -118,20 +109,20 @@ class EventController extends Controller
         else
             $this->media = null;
 
-        // Media
-        if ($upload) {
-            if ($this->media) {
-                // Replace media
+        // Update media
+        if ($request->hasFile('image')) {
+            $upload = MediaUploader::fromSource($request->file('image'))
+                ->toDisk('public')
+                ->toDirectory('pictures/events/')
+                ->onDuplicateUpdate()
+                ->useHashForFilename()
+                ->makePublic()
+                ->upload();
+
+            // Media
+            if ($upload) {
                 $event->syncMedia($upload, 'image');
-                session()->flash('status', 'Image updated successfully.');
-            } else {
-                // Store media
-                $event->attachMedia($upload, 'image');
-                session()->flash('status', 'Image uploaded successfully.');
             }
-        } else {
-            session()->flash('status', 'Image cannot be uploaded.');
-            return back()->withInput();
         }
 
         session()->flash('status', 'Event created successfully!');
@@ -177,7 +168,46 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        //
+        $user = auth()->user();
+
+        if (!$user->is_admin) {
+            return redirect()->route('event.index')->with('status', "You can't create Event!");
+        }
+
+        // Reset Default
+        $default = Event::where('default', 1)->first();
+        if ($default and $request->default === "on" and $default->id != $event->id) {
+            $default->default = 0;
+            $default->save();
+        }
+
+        $request['default'] = $request ? 1 : 0;
+        $event->update($request->only(['name', 'about', 'min_vote', 'vote_cost', 'started_at', 'ended_at', 'default']));
+
+        // Check for existing image
+        if ($event->media and $event->media->first())
+            $this->media = $event->media->first();
+        else
+            $this->media = null;
+
+        // Update media
+        if ($request->hasFile('image')) {
+            $upload = MediaUploader::fromSource($request->file('image'))
+                ->toDisk('public')
+                ->toDirectory('pictures/events/')
+                ->onDuplicateUpdate()
+                ->useHashForFilename()
+                ->makePublic()
+                ->upload();
+
+            // Media
+            if ($upload) {
+                $event->syncMedia($upload, 'image');
+            }
+        }
+
+        session()->flash('status', 'Event updated successfully!');
+        return redirect(route('event.show', $event->slug));
     }
 
     /**
