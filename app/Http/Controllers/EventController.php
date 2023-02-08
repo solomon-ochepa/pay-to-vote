@@ -45,6 +45,7 @@ class EventController extends Controller
     public function create()
     {
         $this->middleware(['auth', 'can:edit.event']);
+
         if (!auth()->user()->is_admin) {
             return redirect()->route('event.index')->with('status', "You can't create Event!");
         }
@@ -61,17 +62,18 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $this->middleware(['auth', 'can:edit.event']);
+
         if (!auth()->user()->is_admin) {
             return redirect()->route('event.index')->with('status', "You can't create Event!");
         }
 
         $request->validate([
             'name'          => ['required', 'string', 'max:120'],
-            'min_vote'      => ['required', 'integer', 'min:1'],
-            'vote_cost'     => ['required', 'integer', 'min:1'],
             'started_at'    => ['required', 'date'],
             'ended_at'      => ['required', 'date'],
             'about'         => ['required', 'string', 'max:800'],
+            'min_vote'      => ['required', 'integer', 'min:1'],
+            'vote_cost'     => ['required', 'numeric', 'min:1'],
             'default'       => ['nullable', 'string'],
             'image'         => ['required', 'image', "max:{$this->max}", "mimes:jpg,jpeg,png,svg"],
         ]);
