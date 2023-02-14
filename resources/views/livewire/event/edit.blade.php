@@ -7,7 +7,7 @@
         @if ($image and !empty($image->temporaryUrl()))
             <img src="{{ $image->temporaryUrl() }}" class="rounded mb-2" width="auto"
                 style="max-width: 100%; height: 100%">
-        @elseif($event->media)
+        @elseif($event->hasMedia('image'))
             <img src="{{ $event->firstMedia(['image', 'profile'])->getUrl() }}" class="rounded mb-2" width="auto"
                 style="max-width: 100%">
         @endif
@@ -73,16 +73,16 @@
 
                 <div class="col-md-6">
                     <label for="started_at" class="form-label">Starting</label>
-                    <input type="_datetime-local" class="form-control" id="started_at" name="started_at" required
-                        wire:model="event.started_at">
+                    <input type="datetime-local" class="form-control" id="started_at" name="started_at"
+                        value="{{ $event->started_at }}" required />
                     @error('event.started_at')
                         <span class="form-text text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-6">
                     <label for="ended_at" class="form-label">Ending</label>
-                    <input type="_datetime-local" class="form-control" id="ended_at" name="ended_at" required
-                        wire:model.lazy="event.ended_at">
+                    <input type="datetime-local" class="form-control" id="ended_at" name="ended_at" required
+                        value="{{ $event->ended_at }}">
                     @error('event.ended_at')
                         <span class="form-text text-danger">{{ $message }}</span>
                     @enderror

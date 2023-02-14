@@ -20,7 +20,7 @@ class Contestant extends Model
      * @var string[]
      */
     protected $fillable = [
-        'first_name', 'last_name', 'number', 'event_id', 'user_id', 'votes', 'about',
+        'active', 'first_name', 'last_name', 'number', 'event_id', 'user_id', 'votes', 'about',
     ];
 
     protected $with = [

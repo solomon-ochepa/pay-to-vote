@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Event;
 
+use App\Http\Requests\EventUpdateRequest;
 use App\Models\Event;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -24,15 +25,13 @@ class Edit extends Component
         return view('livewire.event.edit');
     }
 
-    protected $rules = [
-        'event.name'          => ['bail', 'required', 'string', 'max:120'],
-        'event.started_at'    => ['bail', 'required', 'date'],
-        'event.ended_at'      => ['bail', 'required', 'date'],
-        'event.about'         => ['bail', 'required', 'string', 'max:800'],
-        'event.min_vote'        => ['bail', 'required', 'integer', 'min:1'],
-        'event.vote_cost'       => ['bail', 'required', 'numeric', 'min:1'],
-        'event.default'       => ['bail', 'nullable', 'string'],
-    ];
+    protected function rules()
+    {
+        $request = new EventUpdateRequest([
+            'id' => $this->event->id,
+        ]);
+        return $request->rules();
+    }
 
     public function updated()
     {

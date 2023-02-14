@@ -66,8 +66,7 @@ class ContestantController extends Controller
             'first_name'    => $request['first_name'],
             'last_name'     => $request['last_name'],
         ], [
-            'number'    => $number,
-            'active'    => 1,
+            'number'    => $number
         ]);
 
         // Check for existing image
@@ -78,11 +77,11 @@ class ContestantController extends Controller
 
         // Upload file
         $upload = MediaUploader::fromSource($request->file('image'))
-            ->toDisk('public')
+            // ->toDisk('public')
             ->toDirectory('pictures/contestants/')
             ->onDuplicateUpdate()
             ->useHashForFilename()
-            ->makePublic()
+            // ->makePublic()
             ->upload();
 
         // Store Media in Database table

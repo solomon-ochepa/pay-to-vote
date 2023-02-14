@@ -171,7 +171,7 @@ class EventController extends Controller
         $user = auth()->user();
 
         if (!$user->is_admin) {
-            return redirect()->route('event.index')->with('status', "You can't create Event!");
+            return redirect()->route('event.index')->with('status', "You can't update Event!");
         }
 
         // Reset Default
@@ -193,11 +193,9 @@ class EventController extends Controller
         // Update media
         if ($request->hasFile('image')) {
             $upload = MediaUploader::fromSource($request->file('image'))
-                ->toDisk('public')
                 ->toDirectory('pictures/events/')
                 ->onDuplicateUpdate()
                 ->useHashForFilename()
-                ->makePublic()
                 ->upload();
 
             // Media
