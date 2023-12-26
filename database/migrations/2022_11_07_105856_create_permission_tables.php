@@ -26,8 +26,8 @@ class CreatePermissionTables extends Migration
         }
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
-            $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
+            $table->string('name', 16);       // For MySQL 8.0 use string('name', 125);
+            $table->string('guard_name', 8); // For MySQL 8.0 use string('guard_name', 125);
             //
             $table->uuid('id')->primary(); // permission id
             $table->timestamps();
@@ -40,8 +40,8 @@ class CreatePermissionTables extends Migration
                 $table->foreignUuid($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
-            $table->string('name');       // For MySQL 8.0 use string('name', 125);
-            $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
+            $table->string('name', 16);       // For MySQL 8.0 use string('name', 125);
+            $table->string('guard_name', 8); // For MySQL 8.0 use string('guard_name', 125);
             //
             $table->uuid('id')->primary(); // role id
             $table->timestamps();
