@@ -29,9 +29,7 @@ jobs:
 
     # Runs a command using the runners shell
     - name: Install Dependencies
-      run: |
-        composer config platform.php 8.1.17
-        composer update --ignore-platform-reqs --no-dev
+      run: composer config platform.php 8.1.2; composer update --ignore-platform-reqs --no-dev
 
     # - name: Copy .env
     #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -49,9 +47,6 @@ jobs:
 
     - name: Session migration
       run: php artisan session:table
-
-    - name: Migration
-      run: php artisan migrate
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
