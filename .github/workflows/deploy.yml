@@ -31,12 +31,12 @@ jobs:
     - name: Install Dependencies
       run: |
         composer config platform.php 8.1.17
-        composer install --ignore-platform-reqs --no-dev
+        composer update --ignore-platform-reqs --no-dev
 
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Generate key
-      run: php artisan key:generate
+    # - name: Copy .env
+    #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    # - name: Generate key
+    #   run: php artisan key:generate
 
     - name: Directory Permissions
       run: chmod -R 775 storage
@@ -47,8 +47,11 @@ jobs:
     - name: Storage link
       run: php artisan storage:link --force
 
-    - name: Session
+    - name: Session migration
       run: php artisan session:table
+
+    - name: Migration
+      run: php artisan migrate
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
