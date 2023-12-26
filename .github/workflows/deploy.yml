@@ -73,7 +73,7 @@ jobs:
         # timeout: 30000
         # local-dir: './'
         server-dir: '/public_html/votes.goody.market/'
-        # log-level: minimal
+        log-level: minimal
         # exclude: |
         #   **/.DS_Store
         #   **/.env
