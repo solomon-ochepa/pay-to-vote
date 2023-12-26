@@ -72,6 +72,14 @@ Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->gr
         output($output->fetch());
     });
 
+    // db:seed
+    Route::get('/seed', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('db:seed', [], $output);
+        output($output->fetch());
+    });
+
     Route::get('/storage', function () {
         $output = new BufferedOutput;
 
