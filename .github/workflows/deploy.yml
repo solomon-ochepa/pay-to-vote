@@ -27,10 +27,10 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
-    # - name: Copy .env
-    #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    # - name: Generate key
-    #   run: php artisan key:generate
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+    - name: Generate key
+      run: php artisan key:generate
 
     # Runs a command using the runners shell
     - name: Install Dependencies
@@ -57,36 +57,36 @@ jobs:
         # local-dir: './'
         server-dir: '/public_html/votes.goody.market/'
         log-level: minimal
-        exclude: |
-          **/.DS_Store
-          **/.env
-          **/.git*
-          **/.git*/**
-          **/.phpunit.cache
-          **/.phpunit.result.cache
-          **/.idea
-          **/.vscode
-          **/.dockerignore
-          **/.editorconfig
-          **/.gitattributes
-          **/.gitignore
-          **/*.zip
-          **/bootstrap/cache/**
-          !**/bootstrap/cache/.gitignore
-          **/build
-          **/compose*.y*
-          **/docker-compose*
-          **/Dockerfile*
-          **/*error*
-          **/Homestead.json
-          **/Homestead.yaml
-          **/node_modules/**
-          **/npm-debug.log
-          **/public/hot
-          **/public/storage
-          **/src
-          **/storage/*.key
-          **/storage/framework/**
-          **/storage/logs/**
-          **/storage/tenant*/**
-          **/*temp/**
+        # exclude: |
+        #   **/.DS_Store
+        #   **/.env
+        #   **/.git*
+        #   **/.git*/**
+        #   **/.phpunit.cache
+        #   **/.phpunit.result.cache
+        #   **/.idea
+        #   **/.vscode
+        #   **/.dockerignore
+        #   **/.editorconfig
+        #   **/.gitattributes
+        #   **/.gitignore
+        #   **/*.zip
+        #   **/bootstrap/cache/**
+        #   !**/bootstrap/cache/.gitignore
+        #   **/build
+        #   **/compose*.y*
+        #   **/docker-compose*
+        #   **/Dockerfile*
+        #   **/*error*
+        #   **/Homestead.json
+        #   **/Homestead.yaml
+        #   **/node_modules/**
+        #   **/npm-debug.log
+        #   **/public/hot
+        #   **/public/storage
+        #   **/src
+        #   **/storage/*.key
+        #   **/storage/framework/**
+        #   **/storage/logs/**
+        #   **/storage/tenant*/**
+        #   **/*temp/**
