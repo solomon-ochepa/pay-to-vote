@@ -37,7 +37,7 @@ jobs:
 
     # Runs a command using the runners shell
     - name: Install Dependencies
-      run: composer update --no-dev #--ignore-platform-reqs
+      run: composer update #--no-dev #--ignore-platform-reqs
 
     - name: PHP -V
       run: php -v
