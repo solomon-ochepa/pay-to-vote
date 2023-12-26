@@ -107,6 +107,4 @@ jobs:
         #   **/storage/logs/**
         #   **/storage/tenant*/**
         #   **/*temp/**
-
-    - name: Migration
-      run: php artisan migrate -n --force
+        
