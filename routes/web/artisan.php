@@ -32,11 +32,43 @@ Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->gr
         output($output->fetch());
     });
 
+    // migrate:install   Create the migration repository
+    Route::get('/migrate-install', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate:install', [], $output);
+        output($output->fetch());
+    });
+
     // migrate:refresh   Reset and re-run all migrations
     Route::get('/migrate-refresh', function (Request $request) {
         $output = new BufferedOutput;
 
         Artisan::call('migrate:refresh', ['--path' => $request->path], $output);
+        output($output->fetch());
+    });
+
+    // migrate:reset     Rollback all database migrations
+    Route::get('/migrate-reset', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate:reset', [], $output);
+        output($output->fetch());
+    });
+
+    // migrate:rollback  Rollback the last database migration
+    Route::get('/migrate-rollback', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate:rollback', [], $output);
+        output($output->fetch());
+    });
+
+    // migrate:status    Show the status of each migration
+    Route::get('/migrate-status', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate:status', [], $output);
         output($output->fetch());
     });
 
