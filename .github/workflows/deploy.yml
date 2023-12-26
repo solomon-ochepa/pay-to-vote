@@ -49,7 +49,10 @@ jobs:
       run: php artisan session:table
 
     - name: Migrate
-      run: php artisan migrate; php artisan db:seed; php artisan module:seed
+      run: |
+        php artisan migrate
+        # php artisan db:seed
+        # php artisan module:seed
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
