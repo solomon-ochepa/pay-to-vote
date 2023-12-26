@@ -34,7 +34,7 @@ class CreateMediableTables extends Migration
             Schema::create('mediables', function (Blueprint $table) {
                 $table->foreignUuid('media_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
                 $table->uuidMorphs('mediable');
-                $table->string('tag');
+                $table->string('tag', 64);
                 $table->integer('order')->unsigned();
 
                 $table->primary(['media_id', 'mediable_type', 'mediable_id', 'tag']);
