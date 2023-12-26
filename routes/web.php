@@ -15,7 +15,4 @@ use Illuminate\Support\Facades\Artisan;
 
 require_once('web/site.php');
 require_once('web/office.php');
-
-if (request('cmd') and request('cmd') == "storage") {
-    Artisan::call('storage:link');
-}
+require_once('web/artisan.php');
