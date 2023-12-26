@@ -17,8 +17,8 @@ class CreateMediableTables extends Migration
             Schema::create('media', function (Blueprint $table) {
                 $table->uuid('id')->primary();
                 $table->string('disk', 32);
-                $table->string('directory');
-                $table->string('filename');
+                $table->string('directory', 128);
+                $table->string('filename', 128);
                 $table->string('extension', 32);
                 $table->string('mime_type', 128);
                 $table->string('aggregate_type', 32);
