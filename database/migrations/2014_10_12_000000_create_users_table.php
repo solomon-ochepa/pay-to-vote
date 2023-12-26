@@ -14,20 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('username')->unique()->nullable();
-            $table->string('phone')->unique();
-            $table->string('email')->unique()->nullable();
-            $table->string('address')->nullable();
+            $table->uuid('id')->primary();
+            $table->string('first_name', 32);
+            $table->string('last_name', 32);
+            $table->string('username', 16)->unique()->nullable();
+            $table->string('phone', 14)->unique();
+            $table->string('email', 255)->unique()->nullable();
+            $table->string('address', 255)->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', 255);
             $table->boolean('is_admin')->default(0);
             $table->rememberToken();
             $table->foreignUuid('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            //
-            $table->uuid('id')->primary();
             $table->timestamps();
         });
     }
