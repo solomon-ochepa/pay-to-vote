@@ -13,10 +13,33 @@ Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->gr
         output($output->fetch());
     });
 
+    // Run migration
     Route::get('/migrate', function (Request $request) {
         $output = new BufferedOutput;
 
         Artisan::call('migrate', ['--path' => $request->path], $output);
+        output($output->fetch());
+
+        Artisan::call('module:migrate', [], $output);
+        output($output->fetch());
+    });
+
+    // migrate:fresh     Drop all tables and re-run all migrations
+    Route::get('/migrate-fresh', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate:fresh', ['--path' => $request->path], $output);
+        output($output->fetch());
+
+        Artisan::call('module:migrate', [], $output);
+        output($output->fetch());
+    });
+
+    // migrate:refresh   Reset and re-run all migrations
+    Route::get('/migrate-refresh', function (Request $request) {
+        $output = new BufferedOutput;
+
+        Artisan::call('migrate-refresh', ['--path' => $request->path], $output);
         output($output->fetch());
 
         Artisan::call('module:migrate', [], $output);
