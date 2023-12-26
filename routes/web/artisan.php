@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Console\Output\BufferedOutput;
 
-Route::middleware(['auth', 'verified', 'role:admin'])->prefix('artisan')->group(function () {
+Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->group(function () {
     Route::get('/', function (Request $request) {
         $output = new BufferedOutput();
 
@@ -27,6 +27,14 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('artisan')->group(
         $output = new BufferedOutput;
 
         Artisan::call('storage:link -n', [], $output);
+        output($output->fetch());
+    });
+
+    Route::get('/session', function () {
+        $output = new BufferedOutput;
+
+        Artisan::call('session:table -n', [], $output);
+        Artisan::call('migrate -n', [], $output);
         output($output->fetch());
     });
 
