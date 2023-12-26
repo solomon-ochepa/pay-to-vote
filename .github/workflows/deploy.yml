@@ -31,19 +31,13 @@ jobs:
       with:
         php-version: 8.1
 
-    - name: PHP -V
-      run: php -v
-
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
-    - name: PHP -V
-      run: php -v
-
     # Runs a command using the runners shell
     - name: Install Dependencies
-      run: composer update --ignore-platform-reqs --no-dev
+      run: composer update --no-dev #--ignore-platform-reqs
 
     - name: PHP -V
       run: php -v
@@ -64,9 +58,6 @@ jobs:
 
     - name: Session migration
       run: php artisan session:table
-
-    - name: PHP -V
-      run: php -v
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -112,8 +103,4 @@ jobs:
         #   **/storage/framework/**
         #   **/storage/logs/**
         #   **/storage/tenant*/**
-        
-    - name: PHP -V
-      run: php -v
-
         #   **/*temp/**
