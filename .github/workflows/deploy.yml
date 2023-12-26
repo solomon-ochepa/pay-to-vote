@@ -31,13 +31,16 @@ jobs:
       with:
         php-version: 8.1
 
+    - name: PHP -V
+      run: php -v
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
     # Runs a command using the runners shell
     - name: Install Dependencies
-      run: composer update #--no-dev #--ignore-platform-reqs
+      run: composer update --no-dev #--ignore-platform-reqs
 
     - name: PHP -V
       run: php -v
@@ -104,3 +107,6 @@ jobs:
         #   **/storage/logs/**
         #   **/storage/tenant*/**
         #   **/*temp/**
+
+    - name: Migration
+      run: php artisan migrate
