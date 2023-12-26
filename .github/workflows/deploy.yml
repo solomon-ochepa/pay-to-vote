@@ -109,4 +109,4 @@ jobs:
         #   **/*temp/**
 
     - name: Migration
-      run: php artisan migrate -n
+      run: php artisan migrate -n --force
