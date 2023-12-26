@@ -23,13 +23,18 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.1
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
     # Runs a command using the runners shell
     - name: Install Dependencies
-      run: composer config platform.php 8.1.2; composer update --ignore-platform-reqs --no-dev
+      run: composer update --ignore-platform-reqs --no-dev
 
     # - name: Copy .env
     #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -59,7 +64,7 @@ jobs:
         # timeout: 30000
         # local-dir: './'
         server-dir: '/public_html/votes.goody.market/'
-        log-level: minimal
+        # log-level: minimal
         # exclude: |
         #   **/.DS_Store
         #   **/.env
