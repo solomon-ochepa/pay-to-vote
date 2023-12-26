@@ -27,14 +27,14 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
+    # Runs a command using the runners shell
+    - name: Install Dependencies
+      run: composer update --ignore-platform-reqs
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Generate key
       run: php artisan key:generate
-
-    # Runs a command using the runners shell
-    - name: Install Dependencies
-      run: composer update --ignore-platform-reqs
 
     - name: Directory Permissions
       run: chmod -R 775 storage
