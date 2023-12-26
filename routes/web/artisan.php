@@ -30,19 +30,13 @@ Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->gr
 
         Artisan::call('migrate:fresh', ['--path' => $request->path], $output);
         output($output->fetch());
-
-        Artisan::call('module:migrate', [], $output);
-        output($output->fetch());
     });
 
     // migrate:refresh   Reset and re-run all migrations
     Route::get('/migrate-refresh', function (Request $request) {
         $output = new BufferedOutput;
 
-        Artisan::call('migrate-refresh', ['--path' => $request->path], $output);
-        output($output->fetch());
-
-        Artisan::call('module:migrate', [], $output);
+        Artisan::call('migrate:refresh', ['--path' => $request->path], $output);
         output($output->fetch());
     });
 
