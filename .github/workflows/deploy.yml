@@ -23,18 +23,30 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - name: PHP -V
+      run: php -v
+
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: 8.1
 
+    - name: PHP -V
+      run: php -v
+
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
+    - name: PHP -V
+      run: php -v
+
     # Runs a command using the runners shell
     - name: Install Dependencies
       run: composer update --ignore-platform-reqs --no-dev
+
+    - name: PHP -V
+      run: php -v
 
     # - name: Copy .env
     #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
@@ -52,6 +64,9 @@ jobs:
 
     - name: Session migration
       run: php artisan session:table
+
+    - name: PHP -V
+      run: php -v
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -97,4 +112,8 @@ jobs:
         #   **/storage/framework/**
         #   **/storage/logs/**
         #   **/storage/tenant*/**
+        
+    - name: PHP -V
+      run: php -v
+
         #   **/*temp/**
