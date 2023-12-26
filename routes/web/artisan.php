@@ -34,7 +34,6 @@ Route::/*middleware(['auth', 'verified', 'role:admin'])->*/prefix('artisan')->gr
         $output = new BufferedOutput;
 
         Artisan::call('session:table -n', [], $output);
-        Artisan::call('migrate -n', [], $output);
         output($output->fetch());
     });
 
